@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image";
 import React, { useState } from "react";
 
 const Cart = () => {
@@ -68,7 +69,7 @@ const Cart = () => {
               className="flex items-center justify-between bg-white shadow-md p-4 mb-4 rounded-lg"
             >
               <div className="flex items-center space-x-4">
-                <img src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded" />
+                <Image src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded" />
                 <div>
                   <h2 className="text-lg font-semibold">{item.name}</h2>
                   <p className="text-sm text-gray-600">

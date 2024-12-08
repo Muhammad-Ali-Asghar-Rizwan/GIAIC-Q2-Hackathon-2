@@ -39,7 +39,7 @@ export default function Customer() {
               <h1 className='font-bold'>Sarah M.</h1>
               <FaCheckCircle color="#01AB31" size={20} className='mt-[2px]' />
             </div>
-            <div><p>"I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.”</p></div>
+            <div><p>Im blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses every piece Ive bought has exceeded my expectations.</p></div>
           </div>
 
           {/* Customer Box 2 */}
@@ -55,7 +55,7 @@ export default function Customer() {
               <h1 className='font-bold'>Alex K.</h1>
               <FaCheckCircle color="#01AB31" size={20} className='mt-[2px]' />
             </div>
-            <div><p>"Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.”</p></div>
+            <div><p>Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable catering to a variety of tastes and occasions.</p></div>
           </div>
 
           {/* Customer Box 3 */}
@@ -71,7 +71,7 @@ export default function Customer() {
               <h1 className='font-bold'>James L.</h1>
               <FaCheckCircle color="#01AB31" size={20} className='mt-[2px]' />
             </div>
-            <div><p>"As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends.”</p></div>
+            <div><p>As someone whos always on the lookout for unique fashion pieces Im thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends</p></div>
           </div>
 
         </div>
