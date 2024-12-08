@@ -2,17 +2,26 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
+type CartItem = {
+  id: number;
+  name: string;
+  size: string;
+  color: string;
+  price: number;
+  quantity: number;
+  image: string;
+};
+
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
+  const [cartItems, setCartItems] = useState<CartItem[]>([
     {
       id: 1,
       name: "Gradient Graphic T-shirt",
       size: "Large",
       color: "White",
-      
       price: 145,
       quantity: 1,
-      image: "/images/s1.png", // Replace with your image URL
+      image: "/images/s1.png",
     },
     {
       id: 2,
@@ -21,7 +30,7 @@ const Cart = () => {
       color: "Red",
       price: 180,
       quantity: 1,
-      image: "/images/s2.png", // Replace with your image URL
+      image: "/images/s2.png",
     },
     {
       id: 3,
@@ -30,11 +39,11 @@ const Cart = () => {
       color: "Blue",
       price: 240,
       quantity: 1,
-      image: "/images/s3.png", // Replace with your image URL
+      image: "/images/s3.png",
     },
   ]);
 
-  const handleQuantityChange = (id, action) => {
+  const handleQuantityChange = (id: number, action: "increase" | "decrease") => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.id === id
@@ -48,7 +57,7 @@ const Cart = () => {
     );
   };
 
-  const handleRemove = (id) => {
+  const handleRemove = (id: number) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
