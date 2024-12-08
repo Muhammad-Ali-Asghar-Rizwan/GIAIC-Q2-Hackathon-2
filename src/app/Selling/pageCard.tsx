@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
 
-import { CiHeart } from "react-icons/ci";
 
 
 interface SellingCardProps {

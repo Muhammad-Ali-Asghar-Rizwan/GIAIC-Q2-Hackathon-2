@@ -3,7 +3,7 @@
 "use client";
 
 import Selling from '@/app/Selling/page';
-import { Car, Check, CircleAlert,  Heart, } from 'lucide-react';
+import { Check,  } from 'lucide-react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { FaStar } from "react-icons/fa";

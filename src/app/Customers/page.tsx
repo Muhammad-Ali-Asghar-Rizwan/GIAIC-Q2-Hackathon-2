@@ -7,7 +7,7 @@ import { FaCheckCircle } from "react-icons/fa";
 
 import { Anton } from 'next/font/google';
 
-const anton = Anton({ subsets: ['latin'], weight: ["400","400"] });
+// const anton = Anton({ subsets: ['latin'], weight: ["400","400"] });
 
 export default function Customer() {
   return (

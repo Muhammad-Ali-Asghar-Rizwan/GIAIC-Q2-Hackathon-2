@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { FaStar } from "react-icons/fa";
 
@@ -91,7 +92,7 @@ export default function Home() {
             { name: "Sleeve Striped T-Shirt", price: "$130", img: "/images/brand6.png" },
           ].map((item, index) => (
             <div key={index} className="border p-4 rounded">
-              <img
+              <Image
                 src={item.img}
                 alt={item.name}
                 className="h-[298px] w-full rounded-[20px] bg-[#F0EEED] object-cover mb-4"
