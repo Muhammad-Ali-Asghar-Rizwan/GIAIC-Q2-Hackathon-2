@@ -80,7 +80,7 @@ const Selling = () => {
         {/* <Link href="/Category"> */}
       <div className='flex items-center justify-center mt-16'>
 
-            <button className='h-[52px] w-[218px] border border-black rounded-[50px] hover:bg-black hover:text-white'><Link href="/Category">View All Products</Link></button>
+            <button className='h-[52px] w-[218px] border border-black rounded-[50px] hover:bg-black hover:text-white'><Link href="/category">View All Products</Link></button>
         </div>
         {/* // </Link> */}
 

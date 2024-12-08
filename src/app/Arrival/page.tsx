@@ -77,7 +77,7 @@ const Arrival = () => {
           </div>
         ))}
       </div>
-        <Link href="/Category">
+        <Link href="/category">
       <div className='flex items-center justify-center mt-16'>
             <button className='h-[52px] w-[218px] border border-black rounded-[50px] hover:bg-black hover:text-white'>View All Products</button>
         </div>

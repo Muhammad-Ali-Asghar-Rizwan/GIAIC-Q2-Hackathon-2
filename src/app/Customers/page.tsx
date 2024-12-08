@@ -15,7 +15,7 @@ export default function Customer() {
       <div className='w-full max-w-[1100px] mb-12 flex flex-col gap-7 px-4'>
 
         {/* heading div */}
-        <div className='flex justify-between items-center h-[58px] flex-col sm:flex-row'>
+        <div className='flex flex-col sm:flex-row justify-between items-center'>
           <h1 className="text-[30px] sm:text-[48px] font-extrabold text-center sm:text-left">OUR HAPPY CUSTOMERS</h1>
           <div className='font-bold flex gap-4 mt-6 sm:mt-0'>
             <div><GoArrowLeft className='h-[24px] text-2xl' /></div>
@@ -24,10 +24,10 @@ export default function Customer() {
         </div>
 
         {/* div for boxes */}
-        <div className='flex  justify-center gap-8 sm:flex-row sm:justify-start'>
+        <div className=' flex justify-center gap-8 sm:flex-row sm:justify-start'>
 
           {/* Customer Box 1 */}
-          <div className='w-full sm:w-[400px] h-[280px] py-[28px] px-[32px] border-[1px] border-gray-700 rounded-[20px] flex flex-col gap-2 hover:shadow-xl hover:border-orange-500 hover:bg-gray-100 transition-all'>
+          <div className='w-full sm:w-[400px] md:w-[350px] h-[auto] py-[28px] px-[32px] border-[1px] border-gray-700 rounded-[20px] flex flex-col gap-2 hover:shadow-xl hover:border-orange-500 hover:bg-gray-100 transition-all'>
             <div className='flex gap-1'>
               <FaStar color="orange" size={20} />
               <FaStar color="orange" size={20} />
@@ -43,7 +43,7 @@ export default function Customer() {
           </div>
 
           {/* Customer Box 2 */}
-          <div className='w-full sm:w-[400px] h-[280px] py-[28px] px-[32px] border-[1px] border-gray-700 rounded-[20px] flex flex-col gap-2 hover:shadow-xl hover:border-orange-500 hover:bg-gray-100 transition-all'>
+          <div className='w-full sm:w-[400px] md:w-[350px] h-[auto] py-[28px] px-[32px] border-[1px] border-gray-700 rounded-[20px] flex flex-col gap-2 hover:shadow-xl hover:border-orange-500 hover:bg-gray-100 transition-all'>
             <div className='flex gap-1'>
               <FaStar color="orange" size={20} />
               <FaStar color="orange" size={20} />
@@ -59,7 +59,7 @@ export default function Customer() {
           </div>
 
           {/* Customer Box 3 */}
-          <div className='w-full sm:w-[400px] h-[280px] py-[28px] px-[32px] border-[1px] border-gray-700 rounded-[20px] flex flex-col gap-2 hover:shadow-xl hover:border-orange-500 hover:bg-gray-100 transition-all'>
+          <div className='w-full sm:w-[400px] md:w-[350px] h-[auto] py-[28px] px-[32px] border-[1px] border-gray-700 rounded-[20px] flex flex-col gap-2 hover:shadow-xl hover:border-orange-500 hover:bg-gray-100 transition-all'>
             <div className='flex gap-1'>
               <FaStar color="orange" size={20} />
               <FaStar color="orange" size={20} />

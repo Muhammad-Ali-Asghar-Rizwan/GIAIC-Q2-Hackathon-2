@@ -3,9 +3,9 @@ import { FaStar } from "react-icons/fa";
 
 export default function Home() {
   return (
-    <div className="max-w-7xl mx-auto p-6 flex bg-red-60 px-14">
+    <div className="max-w-7xl mx-auto p-6 flex flex-col md:flex-row bg-red-60 px-4 md:px-14">
       {/* Sidebar */}
-      <aside className="w-1/4 p-4 border-r bg-gray-100">
+      <aside className="w-full md:w-1/4 p-4 border-r bg-gray-100 mb-6 md:mb-0">
         <h2 className="text-lg font-bold mb-4">Filters</h2>
 
         {/* Category Filter */}
@@ -79,9 +79,9 @@ export default function Home() {
       </aside>
 
       {/* Product Grid */}
-      <main className="w-3/4 p-4">
+      <main className="w-full md:w-3/4 p-4">
         <h1 className="text-[32px] font-bold mb-4">Casual</h1>
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {[
             { name: "Gradient Graphic T-Shirt", price: "$145", img: "/images/brand1.png" },
             { name: "Polo with Tipping Details", price: "$180", img: "/images/brand2.png" },
@@ -94,16 +94,15 @@ export default function Home() {
               <img
                 src={item.img}
                 alt={item.name}
-                className="h-[298px] w-[295px] rounded-[20px] bg-[#F0EEED] object-cover mb-4"
+                className="h-[298px] w-full rounded-[20px] bg-[#F0EEED] object-cover mb-4"
               />
               <h3 className="font-bold mt-2">{item.name}</h3>
-              <div className='flex items-center  '>
-               <FaStar   className=' text-yellow-400'/>
-               <FaStar   className=' text-yellow-400'/>
-               <FaStar   className=' text-yellow-400'/>
-               <FaStar   className=' text-yellow-400'/>
-
-               </div>
+              <div className='flex items-center'>
+                <FaStar className='text-yellow-400' />
+                <FaStar className='text-yellow-400' />
+                <FaStar className='text-yellow-400' />
+                <FaStar className='text-yellow-400' />
+              </div>
               <p className="text-[24px] font-bold">{item.price}</p>
             </div>
           ))}
