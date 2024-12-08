@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import React from 'react';
-import { IoIosArrowDown } from "react-icons/io";
 import { RiCloseLargeFill } from "react-icons/ri";
 
 function NavbarTop() {

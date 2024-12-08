@@ -5,7 +5,7 @@ import { GoArrowLeft } from "react-icons/go";
 import { FaStar } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 
-import { Anton } from 'next/font/google';
+// import { Anton } from 'next/font/google';
 
 // const anton = Anton({ subsets: ['latin'], weight: ["400","400"] });
 

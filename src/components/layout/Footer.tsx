@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import { GiMailbox } from "react-icons/gi";
 import { MdEmail } from "react-icons/md";
 import { FaTwitter } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
