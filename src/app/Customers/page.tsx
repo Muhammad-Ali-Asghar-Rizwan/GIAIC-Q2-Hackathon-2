@@ -24,7 +24,7 @@ export default function Customer() {
         </div>
 
         {/* div for boxes */}
-        <div className=' flex justify-center gap-8 sm:flex-row sm:justify-start'>
+        <div className=' flex flex-col md:flex md:flex-row justify-center gap-8 sm:flex-row sm:justify-start'>
 
           {/* Customer Box 1 */}
           <div className='w-full sm:w-[400px] md:w-[350px] h-[auto] py-[28px] px-[32px] border-[1px] border-gray-700 rounded-[20px] flex flex-col gap-2 hover:shadow-xl hover:border-orange-500 hover:bg-gray-100 transition-all'>
