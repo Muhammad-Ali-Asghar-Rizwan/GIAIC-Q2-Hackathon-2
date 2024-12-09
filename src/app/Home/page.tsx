@@ -42,7 +42,7 @@ function HomePage() {
             <Image src="/images/b-g.png" alt='image' width={200} height={200} className='w-[500px]'/>            
        </div>
        </div>
-       <div className='w-full grid grid-cols-2 grid-rows-2 md:grid-cols-4 md:grid-rows-1   items-center justify-around  bg-black h-[6rem]'>
+       <div className='flex flex-col bg-black md:flex md:flex-row items-center gap-5  md:gap-10 h-[10rem] md:h-[5rem] justify-center px-8'>
         <Image src="/images/word1.png" alt='user' width={200} height={200} className='w-[100] h-[23px] md:w-[166.48px] md:h-[33.16px] ml-9 sm:ml-16'/>
         <Image src="/images/word2.png" alt='user' width={200} height={200} className='w-[100] h-[23px] md:w-[166.48px] md:h-[33.16px] ml-9 sm:ml-16'/>
         <Image src="/images/word3.png" alt='user' width={200} height={200} className='w-[100] h-[23px] md:w-[166.48px] md:h-[33.16px] ml-9 sm:ml-16'/>
