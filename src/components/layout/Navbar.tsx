@@ -71,7 +71,7 @@ function Navbar() {
       <input
         type="text"
         placeholder="Search for products..."
-        className="hidden md:block w-[500] lg:w-[447px] h-[38px] rounded-[50px] bg-[#F5F5F5] placeholder:pl-11"
+        className="hidden md:block w-[500] lg:w-[447px] h-[38px] rounded-[50px] bg-[#F5F5F5] placeholder:pl-11 "
       />
       <div className="flex gap-1 ml-4 ">
         <MdOutlineShoppingCart className="w-[22.13px] h-[20.25px]" />

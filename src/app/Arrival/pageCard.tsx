@@ -9,7 +9,7 @@ interface ArrivalCardProps {
 
 export default function ArrivalCard({ post, }: ArrivalCardProps) {
     return (
-        <div className='mx-8 '>
+        <div className='flex flex-col items-center justify-center mx-8 '>
             <div className='bg-[#F0EEED] rounded-lg h-[220px]  w-[230px] '>
                 <div className='flex flex-col items-center justify-center'>
                
@@ -30,7 +30,7 @@ export default function ArrivalCard({ post, }: ArrivalCardProps) {
 
             <div>
                 <h1 className='text-[18px] mt-4 font-bold'>{post.title}</h1>
-                <h2 className='text-red-600 font-semibold'>{post.price}</h2>
+                <h2 className='text-red-600 font-semibold flex items-center justify-center  sm:justify-start'>{post.price}</h2>
                 {/* <h3 className='text-2xl text-yellow-600 flex items-center '>{post.resp}</h3> */}
             </div>
 

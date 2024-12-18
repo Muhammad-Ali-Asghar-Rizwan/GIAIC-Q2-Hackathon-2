@@ -4,7 +4,7 @@ import { FaStar } from "react-icons/fa";
 
 export default function Home() {
   return (
-    <div className="max-w-7xl mx-auto p-6 flex flex-col md:flex-row bg-red-60 px-4 md:px-14">
+    <div data-aos="zoom-out-down" className="max-w-7xl mx-auto p-6 flex flex-col md:flex-row bg-red-60 px-4 md:px-14">
       {/* Sidebar */}
       <aside className="w-full md:w-1/4 p-4 border-r bg-gray-100 mb-6 md:mb-0">
         <h2 className="text-lg font-bold mb-4">Filters</h2>
@@ -95,6 +95,8 @@ export default function Home() {
               <Image
                 src={item.img}
                 alt={item.name}
+                width={200} 
+                height={200}
                 className="h-[298px] w-full rounded-[20px] bg-[#F0EEED] object-cover mb-4"
               />
               <h3 className="font-bold mt-2">{item.name}</h3>

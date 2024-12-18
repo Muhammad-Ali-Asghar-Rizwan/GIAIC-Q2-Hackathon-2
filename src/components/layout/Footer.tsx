@@ -8,7 +8,7 @@ import { FaGithub } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="bg-[#F0F0F0] mt-44">
+    <div data-aos="fade-up" className="bg-[#F0F0F0] mt-44">
   {/* Newsletter Section */}
   <div className="max-w-6xl relative bottom-16 w-full mt-16 mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 rounded-[20px] py-[36px] px-[24px] lg:px-[64px] bg-black text-white">
     <div className="lg:flex-1 text-center lg:text-left">

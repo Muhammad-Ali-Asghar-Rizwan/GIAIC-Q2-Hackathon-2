@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function DressStyle() {
   return (
-<div className="max-w-[95%] lg:max-w-[1239px] mx-auto bg-[#F0F0F0] rounded-[30px] mt-10 sm:mt-16 lg:mt-28">
+<div data-aos="zoom-in" className="max-w-[95%] lg:max-w-[1239px] mx-auto bg-[#F0F0F0] rounded-[30px] mt-10 sm:mt-16 lg:mt-28">
   <div className="py-8 px-6 sm:py-10 sm:px-12 lg:py-11 lg:px-14">
     {/* Header */}
     <h1 className="text-center text-[24px] sm:text-[36px] lg:text-[48px] font-extrabold mt-3">

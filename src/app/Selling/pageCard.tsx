@@ -10,8 +10,8 @@ interface SellingCardProps {
 
 export default function SellingCard({ post, }: SellingCardProps) {
     return (
-        <div className='mx-8 '>
-            <div className='bg-[#F0EEED] rounded-lg h-[220px]  w-[230px] '>
+        <div className='mx-8 flex  flex-col items-center justify-center'>
+            <div className='bg-[#F0EEED] flex flex-col items-center justify-center rounded-lg h-[220px]  w-[230px] '>
                 <div className='flex flex-col items-center justify-center'>
                
 

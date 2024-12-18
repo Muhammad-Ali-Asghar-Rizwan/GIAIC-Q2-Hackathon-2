@@ -52,7 +52,7 @@ const Selling = () => {
   ];
 
   return (
-    <div className='bg-white'>
+    <div data-aos="fade-down" className='bg-white'>
 
     <div className="bg-white  mt-16 max-w-[1200px]  mx-auto">
         <h1 className=' text-[35px] text-center font-extrabold'>NEW ARRIVALS</h1>
@@ -61,19 +61,19 @@ const Selling = () => {
       {/* <h1 className="text-3xl font-bold text-center my-8 text-red-600 animate-color-change">
         Exploring the World of AI and Technology
         </h1> */}
-      <div className="grid grid-cols-1 mt-8 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className=" grid items-center justify-center grid-cols-1 mt-8 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {posts.map((post) => (
             <div className="fade-in" key={post.id}>
             <SellingCard post={post}  />
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ml-8'>
-               <div className='flex items-center  '>
+            {/* <div className='grid grid-cols-1   sm:grid-cols-2 lg:grid-cols-4 gap-8 ml-11 sm:ml-20 md:ml-8'>
+               <div className='flex items-center '>
                <FaStar   className=' text-yellow-400'/>
                <FaStar   className=' text-yellow-400'/>
                <FaStar   className=' text-yellow-400'/>
                <FaStar   className=' text-yellow-400'/>
 
                </div>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
