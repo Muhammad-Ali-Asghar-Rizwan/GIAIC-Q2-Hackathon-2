@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import ArrivalCard from './pageCard';
-import { FaStar } from "react-icons/fa";
 
 
 const Arrival = () => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaStar } from "react-icons/fa";
 import SellingCard from './pageCard';
 
 
