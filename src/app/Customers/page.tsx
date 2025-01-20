@@ -5,13 +5,9 @@ import { GoArrowLeft } from "react-icons/go";
 import { FaStar } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 
-// import { Anton } from 'next/font/google';
-
-// const anton = Anton({ subsets: ['latin'], weight: ["400","400"] });
-
 export default function Customer() {
   return (
-    <main data-aos="zoom-in-down" className='py-9 flex justify-center items-center'>
+    <main  className='py-9 flex justify-center items-center'>
       <div className='w-full max-w-[1100px] mb-12 flex flex-col gap-7 px-4'>
 
         {/* heading div */}

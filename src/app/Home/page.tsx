@@ -1,4 +1,3 @@
-// home
 
 import Image from 'next/image'
 import React from 'react'
@@ -11,7 +10,7 @@ function HomePage() {
   return (
     <div>
 
-    <div data-aos="fade-up" className='bg-[#F2F0F1]'>
+    <div className='bg-[#F2F0F1]'>
 
     <div className='max-w-7xl mx-auto '>
 
@@ -67,11 +66,7 @@ function HomePage() {
             <Image src="/images/b-g.png" alt='image' width={200} height={200} className='w-[500px]'/>            
        </div>
        </div>
-       <div className='flex flex-col bg-black md:flex md:flex-row items-center gap-5  md:gap-32 h-[18rem] md:h-[5rem] justify-center px-8'>
-        {/* <Image src="/images/word1.png" alt='user' width={200} height={200} className='w-[100] h-[23px] md:w-[166.48px] md:h-[33.16px] ml-9 sm:ml-16'/> */}
-        {/* <Image src="/images/word2.png" alt='user' width={200} height={200} className='w-[100] h-[23px] md:w-[166.48px] md:h-[33.16px] ml-9 sm:ml-16'/> */}
-        {/* <Image src="/images/word3.png" alt='user' width={200} height={200} className='w-[100] h-[23px] md:w-[166.48px] md:h-[33.16px] ml-9 sm:ml-16'/> */}
-        {/* <Image src="/images/word4.png" alt='user' width={200} height={200} className='w-[100] h-[23px] md:w-[166.48px] md:h-[33.16px] ml-9 sm:ml-16'/> */}
+       <div className='flex flex-col bg-black md:flex md:flex-row items-center gap-5  lg:gap-32 h-[18rem] md:h-[5rem] justify-center px-8'>
         <h1 className=' text-white text-3xl'>VERSACE</h1>
         <h1 className=' text-white text-3xl'>ZARA</h1>
         <h1 className=' text-white text-3xl'>GUCCI</h1>

@@ -1,9 +1,10 @@
+"use client";
 import React from 'react'
-import { IoSearchOutline } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { Menu } from 'lucide-react';
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { IoSearch } from "react-icons/io5";
 
 import {
   Sheet,
@@ -15,10 +16,15 @@ import {
 } from '../ui/sheet';
 import Link from 'next/link';
 import NavbarTop from './NavbarTop';
+import SearchBar from './Search';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/redux/Store';
+
 
 
 
 function Navbar() {
+  const item = useSelector((state: RootState) => state.cart);
   return (
     <div className=''>
       <NavbarTop/>
@@ -67,15 +73,28 @@ function Navbar() {
     </nav>
 
     <div className="flex items-center">
-      <IoSearchOutline className="w-[22.13px] h-[20.25px] relative left-3 md:left-8" />
+      {/* <IoSearchOutline className="w-[22.13px] h-[20.25px] relative left-3 md:left-8" />
       <input
         type="text"
         placeholder="Search for products..."
         className="hidden md:block w-[500] lg:w-[447px] h-[38px] rounded-[50px] bg-[#F5F5F5] placeholder:pl-11 "
-      />
-      <div className="flex gap-1 ml-4 ">
-        <MdOutlineShoppingCart className="w-[22.13px] h-[20.25px]" />
-        <CiHeart className="w-[22.13px] h-[20.25px]" />
+      /> */}
+      <div className='hidden md:flex'>
+      <SearchBar />
+      </div>
+             <button className="flex md:hidden text-2xl cursor-pointer">
+             <IoSearch />
+             </button>
+      <div className="flex gap-1 ml-4 items-center justify-center">
+        <div className='flex items-center justify-center'>
+        <Link href="/Cart">
+        <MdOutlineShoppingCart className="w-[32.13px] h-[30.25px] mt-5" />
+        <p className='bg-red-500 rounded-full h-5 w-5 text-white flex items-center justify-center relative  bottom-10 left-4'>
+        {item.length}
+        </p>
+        </Link>
+        </div>
+        <CiHeart className="w-[32.13px] h-[30.25px]" />
       </div>
     </div>
   </div>

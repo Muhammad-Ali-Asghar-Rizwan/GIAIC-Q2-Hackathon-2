@@ -1,93 +1,76 @@
 import React from 'react';
 import Link from 'next/link';
-import SellingCard from './pageCard';
+import { fourProducts } from '@/sanity/lib/queries';
+import { sanityFetch } from '@/sanity/lib/fetch';
+import Image from 'next/image';
+
+type Product = {
+  _id:string,
+  name:string,
+  price:number,
+  description:string,
+  imageUrl:string,
+}
 
 
-const Selling = () => {
-  const posts = [
-    {
-      id: '1',
-      title: 'VERTICAL STRIPED SHIRT',
-      price: '$212 ',
-      resp: '* * * * (88)',
-      imageUrl: '/images/s1.png',
-    },
-    {
-      id: '2',
-      title: 'COURAGE GRAPHIC T-SHIRT',
-      price: '$145',
-      resp: '* * * * (75)',
-      imageUrl: '/images/s4.png',
-    },
-    {
-      id: '3',
-      title: 'LOOSE FIT BERMUDA SHORTS',
-      price: '$80',
-      resp: '* * * * (99)',
-      imageUrl: '/images/s3.png',
-    },
-    {
-      id: '4',
-      title: 'FADED SKINNY JEANS',
-      price: '$210',
-      resp: '* * * * (99)',
-      imageUrl: '/images/s2.png',
-    },
-    // {
-    //   id: '5',
-    //   title: 'Next.Js 15',
-    //   price: 'Leveraging Middleware in Next.js 15 for Smarter Applications',
-    //   resp: '',
-    //   imageUrl: '/images/next.jpg',
-    // },
-    // {
-    //   id: '6',
-    //   title: 'Next.Js 15',
-    //   price: '10 Proven Tips to Optimize Your Next.js 15 Applications for Performance',
-    //   resp: '',
-    //   imageUrl: '/images/next.jpg',
-    // },
-    // Add more unique entries as needed
-  ];
+const  Selling = async () => {
+
+  const products:Product[] = await sanityFetch({query:fourProducts}) 
+
+
 
   return (
-    <div data-aos="fade-down" className='bg-white'>
-
-    <div className="bg-white  mt-16 max-w-[1200px]  mx-auto">
-        <h1 className=' text-[35px] text-center font-extrabold'>NEW ARRIVALS</h1>
-        
-
-      {/* <h1 className="text-3xl font-bold text-center my-8 text-red-600 animate-color-change">
-        Exploring the World of AI and Technology
-        </h1> */}
-      <div className=" grid items-center justify-center grid-cols-1 mt-8 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {posts.map((post) => (
-            <div className="fade-in" key={post.id}>
-            <SellingCard post={post}  />
-            {/* <div className='grid grid-cols-1   sm:grid-cols-2 lg:grid-cols-4 gap-8 ml-11 sm:ml-20 md:ml-8'>
-               <div className='flex items-center '>
-               <FaStar   className=' text-yellow-400'/>
-               <FaStar   className=' text-yellow-400'/>
-               <FaStar   className=' text-yellow-400'/>
-               <FaStar   className=' text-yellow-400'/>
-
-               </div>
-            </div> */}
-          </div>
-        ))}
+    <div className='mt-20'>
+      <div className='border-b border-gray-400'></div>
+    <div className='mt-20 mx-8 flex flex-wrap items-center justify-center gap-8'>
+  <h1 className='text-5xl font-extrabold mb-6 w-full text-center'>NEW ARRIVALS</h1>
+  {products.map((product) => (
+    <div
+      key={product._id}
+      className='bg-[#F9F9F9] flex flex-col items-center justify-center rounded-lg w-[230px] p-4 shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out'
+    >
+      <div className='flex flex-col items-center'>
+        <Link href={`/posts/${product._id}`}>
+          <Image
+            src={product.imageUrl}
+            alt={product.name}
+            width={200}
+            height={200}
+            className='w-[190px] h-[190px] object-cover rounded-lg transition-transform hover:scale-75 duration-300 ease-in-out'
+          />
+        </Link>
       </div>
-        {/* <Link href="/Category"> */}
-      <div className='flex items-center justify-center mt-16'>
-
-            <button className='h-[52px] w-[218px] border border-black rounded-[50px] hover:bg-black hover:text-white'><Link href="/category">View All Products</Link></button>
+      <div className=' mt-4'>
+        <h1 className='text-[16px] font-semibold'>{product.name}</h1>
+        
+        <div className='flex  mt-1'>
+          {[...Array(5)].map((_, index) => (
+            <span
+              key={index}
+              className="text-yellow-400 "
+            >
+              ★
+            </span>
+          ))}
+          <span className='text-gray-600 text-[14px] ml-2'>
+            4.5/5
+          </span>
         </div>
-        {/* // </Link> */}
-
-
-        {/* <div className='border-b-[1.5px] mt-12'> </div> */}
+      <h2 className='font-bold text-[18px]'>${product.price}</h2>
+      </div>
     </div>
-        </div>
+  ))}
+</div>
+<div className='flex items-center justify-center'>
+
+  <button className='flex items-center justify-center mt-8 px-6 py-2 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition duration-300'>
+    View All
+  </button>
+</div>
+</div>
+
   );
 };
 
 export default Selling;
+

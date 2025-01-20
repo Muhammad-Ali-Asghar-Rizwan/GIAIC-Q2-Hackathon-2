@@ -1,145 +1,160 @@
-"use client"
+"use client";
+import { FaRegTrashCan } from "react-icons/fa6";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/Store";
 import Image from "next/image";
-import React, { useState } from "react";
+import { remove, incrementQuantity, decrementQuantity } from "../redux/Cartslice";
+import Link from "next/link";
 
-type CartItem = {
+interface CartItem {
   id: number;
-  name: string;
-  size: string;
-  color: string;
+  title: string;
   price: number;
+  imageUrl: string;
   quantity: number;
-  image: string;
-};
+}
 
-const Cart = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      name: "Gradient Graphic T-shirt",
-      size: "Large",
-      color: "White",
-      price: 145,
-      quantity: 1,
-      image: "/images/s1.png",
-    },
-    {
-      id: 2,
-      name: "Checkered Shirt",
-      size: "Medium",
-      color: "Red",
-      price: 180,
-      quantity: 1,
-      image: "/images/s2.png",
-    },
-    {
-      id: 3,
-      name: "Skinny Fit Jeans",
-      size: "Large",
-      color: "Blue",
-      price: 240,
-      quantity: 1,
-      image: "/images/s3.png",
-    },
-  ]);
-
-  const handleQuantityChange = (id: number, action: "increase" | "decrease") => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              quantity:
-                action === "increase" ? item.quantity + 1 : Math.max(1, item.quantity - 1),
-            }
-          : item
-      )
-    );
-  };
+const Cartpage: React.FC = () => {
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state: RootState) => state.cart);
 
   const handleRemove = (id: number) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    dispatch(remove(id));
   };
 
-  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const discount = subtotal * 0.2;
-  const deliveryFee = 15;
+  const handleIncrement = (id: number) => {
+    dispatch(incrementQuantity(id));
+  };
+
+  const handleDecrement = (id: number) => {
+    dispatch(decrementQuantity(id));
+  };
+
+  const subtotal = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  const discount = subtotal * 0.2; // 20% discount
+  const deliveryFee = 15; // Fixed delivery fee
   const total = subtotal - discount + deliveryFee;
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <h1 className="text-3xl font-bold mb-4">Your Cart</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Left: Cart Items */}
-        <div className="col-span-2">
-          {cartItems.map((item) => (
+    <div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
+      {/* Breadcrumb */}
+      <div className="flex gap-4 text-sm text-gray-500 mb-4 w-full max-w-6xl">
+        <Link href="/"> <span>   Home</span>   </Link>
+        <span>/</span>
+      <span> Cart</span>
+      </div>
+
+      {/* Page Title */}
+      <h3 className="text-4xl font-bold text-center mb-8">YOUR CART</h3>
+
+      <div className="w-full max-w-6xl flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8">
+        {/* Cart Items */}
+        <div className="w-full lg:w-2/3 space-y-6">
+          {cartItems.map((item: CartItem) => (
             <div
               key={item.id}
-              className="flex items-center justify-between bg-white shadow-md p-4 mb-4 rounded-lg"
+              className="flex items-center bg-white shadow-md rounded-lg p-4"
             >
-              <div className="flex items-center space-x-4">
-                <Image src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded" />
-                <div>
-                  <h2 className="text-lg font-semibold">{item.name}</h2>
-                  <p className="text-sm text-gray-600">
-                    Size: {item.size} | Color: {item.color}
-                  </p>
-                  <p className="text-lg font-bold">${item.price}</p>
-                </div>
+              {/* Image Section */}
+              <div className="w-24 h-24 flex-shrink-0 relative">
+                <Image
+                  src={item.imageUrl}
+                  alt="Product"
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-md"
+                />
               </div>
-              <div className="flex items-center space-x-2">
+
+              {/* Content Section */}
+              <div className="flex-grow px-4">
+                <h5 className="text-lg font-semibold text-gray-800">
+                  {item.title}
+                </h5>
+                <p className="text-sm text-gray-600">Size: Large</p>
+                <p className="text-sm text-gray-600">Color: Blue</p>
+                <h5 className="text-lg font-medium text-gray-800 mt-2">
+                  ${item.price * item.quantity}
+                </h5>
+              </div>
+
+              {/* Quantity & Remove Section */}
+              <div className="flex flex-col items-center space-y-4">
                 <button
-                  className="px-2 py-1 bg-gray-200 rounded"
-                  onClick={() => handleQuantityChange(item.id, "decrease")}
-                >
-                  -
-                </button>
-                <span className="px-4">{item.quantity}</span>
-                <button
-                  className="px-2 py-1 bg-gray-200 rounded"
-                  onClick={() => handleQuantityChange(item.id, "increase")}
-                >
-                  +
-                </button>
-                <button
-                  className="text-red-500"
+                  className="text-red-500 text-lg hover:text-red-700"
                   onClick={() => handleRemove(item.id)}
                 >
-                  🗑
+                  <FaRegTrashCan />
                 </button>
+                <div className="flex flex-col md:flex md:flex-row items-center border rounded-full bg-gray-200">
+                  <button
+                    className="px-3 py-1 text-lg font-bold"
+                    onClick={() => handleDecrement(item.id)}
+                  >
+                    -
+                  </button>
+                  <span className="px-4">{item.quantity}</span>
+                  <button
+                    className="px-3 py-1 text-lg font-bold"
+                    onClick={() => handleIncrement(item.id)}
+                  >
+                    +
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Right: Order Summary */}
-        <div className="bg-white shadow-md p-6 rounded-lg">
-          <h2 className="text-xl font-bold mb-4">Order Summary</h2>
-          <div className="mb-4">
-            <p className="flex justify-between">
-              <span>Subtotal</span> <span>${subtotal.toFixed(2)}</span>
-            </p>
-            <p className="flex justify-between">
-              <span>Discount (-20%)</span> <span>-${discount.toFixed(2)}</span>
-            </p>
-            <p className="flex justify-between">
-              <span>Delivery Fee</span> <span>${deliveryFee.toFixed(2)}</span>
-            </p>
+        {/* Order Summary */}
+        <div className="w-full lg:w-1/3 bg-white shadow-md rounded-lg p-6 space-y-6">
+          <h4 className="text-2xl font-semibold">Order Summary</h4>
+          <div className="flex justify-between text-gray-600">
+            <p>Subtotal</p>
+            <p>${subtotal.toFixed(2)}</p>
           </div>
-          <hr />
-          <p className="flex justify-between text-xl font-bold mt-4">
-            <span>Total</span> <span>${total.toFixed(2)}</span>
-          </p>
-          <div className="mt-4">
+          <div className="flex justify-between text-gray-600">
+            <p>Discount (-20%)</p>
+            <p className="text-red-500 font-semibold">-${discount.toFixed(2)}</p>
+          </div>
+          <div className="flex justify-between text-gray-600">
+            <p>Delivery Fee</p>
+            <p>${deliveryFee.toFixed(2)}</p>
+          </div>
+          <div className="flex justify-between font-bold text-lg">
+            <p>Total</p>
+            <p>${total.toFixed(2)}</p>
+          </div>
+          <div className="flex flex-col gap-4 md:flex md:flex-row items-center space-x-2">
             <input
               type="text"
               placeholder="Add promo code"
-              className="w-full p-2 border rounded mb-2"
+              className="flex-grow border border-gray-300 rounded px-4  py-2"
             />
-            <button className="w-full bg-black text-white py-2 rounded">Apply</button>
+            <button className="bg-black text-white px-6 py-2 rounded">
+              Apply
+            </button>
           </div>
-          <button className="w-full bg-black text-white py-2 mt-4 rounded">
-            Go to Checkout →
+          <button className="w-full bg-black text-white py-3 rounded mt-4 flex items-center justify-center">
+            Go to Checkout
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 ml-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
           </button>
         </div>
       </div>
@@ -147,4 +162,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default Cartpage;
