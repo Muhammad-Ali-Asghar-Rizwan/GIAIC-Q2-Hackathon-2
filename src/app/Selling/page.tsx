@@ -16,7 +16,8 @@ type Product = {
 const  Selling = async () => {
 
   const products:Product[] = await sanityFetch({query:fourProducts}) 
-
+  console.log(products);
+  
 
 
   return (

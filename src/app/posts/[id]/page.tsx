@@ -51,6 +51,7 @@ export default function Post() {
     const fetchProducts = async () => {
       const fetchedProducts: Product[] = await sanityFetch({ query: allproducts });
       setProducts(fetchedProducts);
+      
 
       // Find product based on the route parameter
       const product = fetchedProducts.find((p) => p._id === params?.id);
