@@ -2,6 +2,7 @@
   "name": "hackathon-3-e-commerce",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -26,7 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.0.0",
-    "@types/react": "^17.0.83",
+    "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
