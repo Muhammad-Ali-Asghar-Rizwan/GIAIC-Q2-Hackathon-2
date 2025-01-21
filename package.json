@@ -22,6 +22,7 @@
     "dotenv": "^16.4.7",
     "lucide-react": "^0.468.0",
     "next": "15.0.4",
+    "next-sanity": "^9.8.39",
     "node-fetch": "^3.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
