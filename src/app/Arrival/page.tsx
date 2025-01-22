@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import { fourProducts, fourProducts2 } from '@/sanity/lib/queries';
-import { sanityFetch } from '@/sanity/lib/fetch';
+// import { fourProducts, fourProducts2 } from '@/sanity/lib/queries';
+// import { sanityFetch } from '@/sanity/lib/fetch';
 import Image from 'next/image';
+import { sanityFetch } from '../../sanity/lib/fetch';
+import {  fourProducts2 } from '../../sanity/lib/queries';
 
 type Product = {
   _id:string,
