@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import React from 'react';
-import { RiCloseLargeFill } from "react-icons/ri";
+import { RiCloseFill } from "react-icons/ri";
 
 function NavbarTop() {
   return (
@@ -22,7 +22,7 @@ function NavbarTop() {
       {/* Right Section */}
       <div className="ml-auto flex items-center text-sm md:text-base">
         <h1 className="flex items-center gap-2">
-        <RiCloseLargeFill />
+        <RiCloseFill />
 
         </h1>
       </div>
