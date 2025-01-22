@@ -60,3 +60,14 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+module.exports = {
+	plugins: {
+	  tailwindcss: {},
+	  autoprefixer: {},
+	},
+  };module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
