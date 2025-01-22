@@ -1,14 +1,13 @@
 "use client";
 
-import { Check } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { FaStar } from "react-icons/fa";
+import { FaCheck, FaStar } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { allproducts } from "@/sanity/lib/queries";
-import { addToCart } from "@/app/redux/Cartslice";
+import { sanityFetch } from "../../../sanity/lib/fetch";
+import { allproducts } from "../../../sanity/lib/queries";
+import { addToCart } from "../../redux/Cartslice";
 
 type Product = {
   _id: string;
@@ -130,7 +129,7 @@ export default function Post() {
           <h1 className="text-sm mt-8">Select Colors</h1>
           <div className="flex gap-4 items-center mt-4">
             <div className="h-9 w-9 bg-[#4F4631] border-2 rounded-full flex items-center justify-center text-white">
-              <Check />
+              <FaCheck />
             </div>
             <div className="h-9 w-9 bg-[#314F4A] rounded-full"></div>
             <div className="h-9 w-9 bg-[#31344F] rounded-full"></div>

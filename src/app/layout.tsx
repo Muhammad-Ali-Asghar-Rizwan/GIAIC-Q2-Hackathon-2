@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import ReduxProvider from "@/components/layout/reduxprovider";
+
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
+import ReduxProvider from "../components/layout/reduxprovider";
 
 
 const geistSans = localFont({
