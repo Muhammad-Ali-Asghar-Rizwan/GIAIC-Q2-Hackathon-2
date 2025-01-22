@@ -89,9 +89,9 @@ function Navbar() {
         <div className='flex items-center justify-center'>
         <Link href="/Cart">
         <MdOutlineShoppingCart className="w-[32.13px] h-[30.25px] mt-5" />
-        {/* <p className='bg-red-500 rounded-full h-5 w-5 text-white flex items-center justify-center relative  bottom-10 left-4'>
+        <p className='bg-red-500 rounded-full h-5 w-5 text-white flex items-center justify-center relative  bottom-10 left-4'>
         {item.length}
-        </p> */}
+        </p>
         </Link>
         </div>
         <CiHeart className="w-[32.13px] h-[30.25px]" />
