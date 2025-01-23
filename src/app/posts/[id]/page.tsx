@@ -201,8 +201,8 @@ import { FaStar, FaStarHalf } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { sanityFetch } from "../../../sanity/lib/fetch";
-import { allProductsQuery } from "../../../sanity/lib/queries";
 import { addToCart } from "../../redux/Cartslice";
+import { allproducts } from "../../../sanity/lib/queries";
 
 
 
@@ -224,7 +224,7 @@ export default function Post() {
  
   useEffect(() => {
     const fetchProducts = async () => {
-      const fetchedProducts: Product[] = await sanityFetch({ query: allProductsQuery });
+      const fetchedProducts: Product[] = await sanityFetch({ query: allproducts});
       setProducts(fetchedProducts);
 
       // Find product based on the route parameter
