@@ -210,11 +210,16 @@ import { allProductsQuery } from "../../../sanity/lib/queries";
 import { addToCart } from "../../redux/Cartslice";
 
 type Product = {
-  _id: string;
-  name: string;
-  price: number;
-  description: string;
-  imageUrl: string;
+  _id:string,
+    name:string,
+    price:number
+    description:string,
+    category:string,
+    discountPercent:string,
+    new:string,
+    colors:string,
+    sizes:string,
+    imageUrl:string,
 };
 
 const reviews = [
