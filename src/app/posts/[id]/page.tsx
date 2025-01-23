@@ -198,7 +198,6 @@
 
 
 
-
 "use client";
 
 import Image from "next/image";
@@ -241,16 +240,29 @@ export default function Post() {
   const dispatch = useDispatch(); // For dispatching Redux actions
   const [products, setProducts] = useState<Product[]>([]);
   const [post, setPost] = useState<Product | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);  // Loading state to show spinner or message
+  const [error, setError] = useState<string | null>(null); // Error state to catch errors
 
   // Fetch products on mount
   useEffect(() => {
     const fetchProducts = async () => {
-      const fetchedProducts: Product[] = await sanityFetch({ query: allproducts });
-      setProducts(fetchedProducts);
+      try {
+        setLoading(true);  // Set loading to true when fetching data
+        const fetchedProducts: Product[] = await sanityFetch({ query: allproducts });
+        console.log("Fetched Products:", fetchedProducts);  // Log to check the fetched data
 
-      // Find product based on the route parameter
-      const product = fetchedProducts.find((p) => p._id === params?.id);
-      setPost(product || null);
+        // Find product based on the route parameter
+        const product = fetchedProducts.find((p) => p._id === params?.id);
+        setPost(product || null);
+
+        // Set products in state
+        setProducts(fetchedProducts);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setError("There was an error fetching the product data. Please try again later.");
+      } finally {
+        setLoading(false);  // Set loading to false after the request
+      }
     };
 
     fetchProducts();
@@ -279,6 +291,17 @@ export default function Post() {
     ));
   };
 
+  // If loading, show loading spinner or message
+  if (loading) {
+    return <h1 className="text-2xl font-bold text-center mt-10">Loading...</h1>;
+  }
+
+  // If there was an error, show the error message
+  if (error) {
+    return <h1 className="text-2xl font-bold text-center mt-10 text-red-600">{error}</h1>;
+  }
+
+  // If post is not found, show Post Not Found message
   if (!post) {
     return <h1 className="text-2xl font-bold text-center mt-10">Post Not Found</h1>;
   }
@@ -314,10 +337,11 @@ export default function Post() {
               <FaStar className="text-yellow-400" />
               4.5/5
             </div>
-
           </div>
+
           {/* Price */}
           <p className="font-bold text-black text-3xl">${post.price}</p>
+
           {/* Description */}
           <div className="mt-4 text-base md:text-lg">{renderParagraphs(post.description)}</div>
 
