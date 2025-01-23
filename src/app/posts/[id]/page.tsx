@@ -197,7 +197,6 @@
 
 
 
-
 "use client";
 
 import Image from "next/image";
@@ -210,19 +209,20 @@ import { allProductsQuery } from "../../../sanity/lib/queries";
 import { addToCart } from "../../redux/Cartslice";
 
 type Product = {
-  _id:string,
-    name:string,
-    price:number
-    description:string,
-    category:string,
-    discountPercent:string,
-    new:string,
-    colors:string,
-    sizes:string,
-    imageUrl:string,
+  _id: string;
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+  discountPercent: string;
+  new: string;
+  colors: string;
+  sizes: string;
+  imageUrl: string;
 };
 
 const reviews = [
+  // Sample reviews (no changes needed here)
   {
     name: "Samantha D.",
     date: "August 14, 2023",
@@ -245,28 +245,28 @@ export default function Post() {
   const dispatch = useDispatch(); // For dispatching Redux actions
   const [products, setProducts] = useState<Product[]>([]);
   const [post, setPost] = useState<Product | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);  // Loading state to show spinner or message
-  const [error, setError] = useState<string | null>(null); // Error state to catch errors
+  const [loading, setLoading] = useState<boolean>(true); // Loading state
+  const [error, setError] = useState<string | null>(null); // Error state
 
   // Fetch products on mount
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        setLoading(true);  // Set loading to true when fetching data
+        setLoading(true); // Start loading
         const fetchedProducts: Product[] = await sanityFetch({ query: allProductsQuery });
-        console.log("Fetched Products:", fetchedProducts);  // Log to check the fetched data
+        console.log("Fetched Products:", fetchedProducts); // Log fetched data
 
         // Find product based on the route parameter
         const product = fetchedProducts.find((p) => p._id === params?.id);
         setPost(product || null);
 
-        // Set products in state
         setProducts(fetchedProducts);
       } catch (err) {
         console.error("Error fetching products:", err);
-        setError("There was an error fetching the product data. Please try again later.");
+        // Capture error message to provide more context in UI
+        setError(`Error: ${err instanceof Error ? err.message : 'Unknown error'}`);
       } finally {
-        setLoading(false);  // Set loading to false after the request
+        setLoading(false); // End loading
       }
     };
 
@@ -412,7 +412,6 @@ export default function Post() {
     </div>
   );
 }
-
 
 
 
