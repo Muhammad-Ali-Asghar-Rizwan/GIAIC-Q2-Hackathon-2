@@ -206,7 +206,7 @@ import { FaCheck, FaStar } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { sanityFetch } from "../../../sanity/lib/fetch";
-import { allproducts } from "../../../sanity/lib/queries";
+import { allProductsQuery } from "../../../sanity/lib/queries";
 import { addToCart } from "../../redux/Cartslice";
 
 type Product = {
@@ -248,7 +248,7 @@ export default function Post() {
     const fetchProducts = async () => {
       try {
         setLoading(true);  // Set loading to true when fetching data
-        const fetchedProducts: Product[] = await sanityFetch({ query: allproducts });
+        const fetchedProducts: Product[] = await sanityFetch({ query: allProductsQuery });
         console.log("Fetched Products:", fetchedProducts);  // Log to check the fetched data
 
         // Find product based on the route parameter

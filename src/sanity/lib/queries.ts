@@ -1,9 +1,8 @@
 import { defineQuery } from "next-sanity";
 
 
-
-export const allproducts = `
-  *[_type == "products"]{
+export  const allProductsQuery = defineQuery(`
+    *[_type == "products"]{
     _id, 
     name,
     price,
@@ -14,8 +13,8 @@ export const allproducts = `
     colors,
     sizes,
     "imageUrl": image.asset->url
-  }
-`;
+    }
+    `)
 
 export  const fourProducts = defineQuery(`
     *[_type == "products"][0..3]{
