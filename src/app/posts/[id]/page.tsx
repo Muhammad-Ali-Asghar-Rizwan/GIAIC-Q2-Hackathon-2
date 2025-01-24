@@ -213,7 +213,7 @@ type ProductPageProps = {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.params; // Capture the dynamic ID
+  const { id } = context.params as { id: string }; // Capture the dynamic ID
   const fetchedProducts: Product[] = await sanityFetch({ query: allproducts });
   const product = fetchedProducts.find(p => p._id === id) || null;
 
