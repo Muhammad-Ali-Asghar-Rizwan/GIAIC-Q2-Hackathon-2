@@ -193,16 +193,17 @@
 
 
 
-import { useEffect, useState } from "react";
+"use client";
+
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { FaCheck, FaStar } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useRouter } from "next/router"; // Use useRouter for dynamic routing
 import { sanityFetch } from "../../../sanity/lib/fetch";
-import { allproducts } from "../../../sanity/lib/queries";
+import { allProductsQuery } from "../../../sanity/lib/queries";
 import { addToCart } from "../../redux/Cartslice";
 
-// Types for product
 type Product = {
   _id: string;
   name: string;
@@ -211,51 +212,38 @@ type Product = {
   imageUrl: string;
 };
 
-const reviews = [
-  {
-    name: "Samantha D.",
-    date: "August 14, 2023",
-    rating: 5,
-    review:
-      "I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable. As a fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt.",
-  },
-  {
-    name: "Alex M.",
-    date: "August 15, 2023",
-    rating: 5,
-    review:
-      "The t-shirt exceeded my expectations! The colors are vibrant and the print quality is top-notch. Being a UI/UX designer myself, I'm quite picky about aesthetics, and this t-shirt definitely gets a thumbs up from me.",
-  },
-  // ...other reviews
-];
-
-type ProductPageProps = {
-  product: Product | null;
-};
-
-// This function runs on the server side before the page is rendered
-export const getServerSideProps = async ({ params }: any) => {
-  const { id } = params; // Capture dynamic route parameter
-  const fetchedProducts: Product[] = await sanityFetch({ query: allproducts });
-  const product = fetchedProducts.find((p) => p._id === id) || null;
-
-  return {
-    props: {
-      product,
-    },
-  };
-};
-
-export default function Post({ product }: ProductPageProps) {
+export default function Post() {
+  const params = useParams();
   const dispatch = useDispatch(); // For dispatching Redux actions
-  const [post, setPost] = useState<Product | null>(product); // Use the passed product data
-  const router = useRouter();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [post, setPost] = useState<Product | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);  // Loading state to show spinner or message
+  const [error, setError] = useState<string | null>(null); // Error state to catch errors
 
   useEffect(() => {
-    if (product) {
-      setPost(product);
-    }
-  }, [product]);
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);  // Set loading to true when fetching data
+        const fetchedProducts: Product[] = await sanityFetch({ query: allProductsQuery });
+        console.log("Fetched Products:", fetchedProducts);  // Log to check the fetched data
+
+        // Find product based on the route parameter
+        const product = fetchedProducts.find((p) => p._id === params?.id);
+        console.log("Found Product:", product);  // Log to check the found product
+        setPost(product || null);
+
+        // Set products in state
+        setProducts(fetchedProducts);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setError("There was an error fetching the product data. Please try again later.");
+      } finally {
+        setLoading(false);  // Set loading to false after the request
+      }
+    };
+
+    fetchProducts();
+  }, [params?.id]);
 
   // Add to Cart handler
   const handleAddToCart = () => {
@@ -280,8 +268,19 @@ export default function Post({ product }: ProductPageProps) {
     ));
   };
 
+  // If loading, show loading spinner or message
+  if (loading) {
+    return <h1 className="text-2xl font-bold text-center mt-10">Loading...</h1>;
+  }
+
+  // If there was an error, show the error message
+  if (error) {
+    return <h1 className="text-2xl font-bold text-center mt-10 text-red-600">{error}</h1>;
+  }
+
+  // If post is not found, show Post Not Found message
   if (!post) {
-    return <h1 className="text-2xl font-bold text-center mt-10">Product Not Found</h1>;
+    return <h1 className="text-2xl font-bold text-center mt-10">Post Not Found</h1>;
   }
 
   return (
@@ -316,8 +315,10 @@ export default function Post({ product }: ProductPageProps) {
               4.5/5
             </div>
           </div>
+
           {/* Price */}
           <p className="font-bold text-black text-3xl">${post.price}</p>
+
           {/* Description */}
           <div className="mt-4 text-base md:text-lg">{renderParagraphs(post.description)}</div>
 
@@ -355,7 +356,7 @@ export default function Post({ product }: ProductPageProps) {
       </div>
 
       {/* Reviews Section */}
-      <div className="p-8">
+      {/* <div className="p-8">
         <h2 className="text-2xl font-bold mb-4">Rating & Reviews</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {reviews.map((review, index) => (
@@ -379,7 +380,7 @@ export default function Post({ product }: ProductPageProps) {
             Load More Reviews
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
