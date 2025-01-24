@@ -363,7 +363,7 @@ export default function Post() {
       </div>
 
       {/* Reviews Section */}
-      <div className="p-8">
+      {/* <div className="p-8">
         <h2 className="text-2xl font-bold mb-4">Rating & Reviews</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {reviews.map((review, index) => (
@@ -387,7 +387,7 @@ export default function Post() {
             Load More Reviews
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
