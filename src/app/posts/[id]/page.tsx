@@ -6,8 +6,9 @@ import { FaCheck, FaStar } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { sanityFetch } from "../../../sanity/lib/fetch";
-import { allproducts } from "../../../sanity/lib/queries";
+// import { allproducts } from "../../../sanity/lib/queries";
 import { addToCart } from "../../redux/Cartslice";
+import { allProductsQuery } from "../../../sanity/lib/queries";
 
 type Product = {
   _id: string;
@@ -48,7 +49,7 @@ export default function Post() {
   // Fetch products on mount
   useEffect(() => {
     const fetchProducts = async () => {
-      const fetchedProducts: Product[] = await sanityFetch({ query: allproducts });
+      const fetchedProducts: Product[] = await sanityFetch({ query: allProductsQuery });
       setProducts(fetchedProducts);
       
 
