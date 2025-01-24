@@ -32,7 +32,7 @@ function Navbar() {
       <header className="max-w-7xl mx-auto body-font">
   <div className="flex items-center justify-between h-20 mx-5">
     {/* Move SheetTrigger (Menu Bar) here */}
-    <div className="lg:hidden">
+    <div className="lg:hidden ">
       <Sheet>
         <SheetTrigger>
           <Menu className='mt-2'/>
