@@ -225,7 +225,7 @@ export default function Post() {
       try {
         setLoading(true);  // Set loading to true when fetching data
         const fetchedProducts: Product[] = await sanityFetch({ query: allProductsQuery });
-        console.log("Fetched Products:", fetchedProducts);  // Log to check the fetched data
+        // console.log("Fetched Products:", fetchedProducts);  // Log to check the fetched data
 
         // Find product based on the route parameter
         const product = fetchedProducts.find((p) => p._id === params?.id);
