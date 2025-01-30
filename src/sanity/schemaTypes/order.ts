@@ -44,7 +44,7 @@ export default  defineType({
         name: 'cartItems',
         title: 'Cart Items',
         type: 'array',
-        of: [{ type: 'reference', to: { type: 'product'}}],
+        of: [{ type: 'reference', to: { type: 'products'}}],
         },
         {
         name: 'total',
