@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import toast from "react-hot-toast";
+import { client } from "../../sanity/lib/client";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -61,6 +62,30 @@ export default function CheckoutPage() {
       await stripe?.redirectToCheckout({ sessionId: id });
     } else {
       toast.error('Failed to create checkout session');
+    }
+    const Order = {
+      _type: "order",
+      firstName: formValues.firstName,
+      lastName: formValues.lastName,
+      address: formValues.address,
+      city: formValues.city,
+      zipCode: formValues.zipCode,
+      phone: formValues.phone,
+      email: formValues.email,
+      cartItems : cartItems.map((item) => ({
+        type: "reference",
+        ref: item.id,
+      })),
+      total: total,
+      // status: "Pending",
+      discount: discount,
+      orderDate: new Date().toISOString(),
+    }
+    try {
+      await client.create(Order);
+      localStorage.removeItem('appiedDiscount');
+    } catch (error) {
+      console.error("Failed to create order", error);
     }
   };
 
