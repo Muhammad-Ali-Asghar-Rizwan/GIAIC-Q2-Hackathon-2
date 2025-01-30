@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface CartItem {
+  name: ReactI18NextChildren | Iterable<ReactI18NextChildren>;
   id: number;
   title: string;
   price: number;
