@@ -1,8 +1,6 @@
 
 
 
-
-
 "use client";
 
 import { useSelector } from "react-redux";
@@ -30,8 +28,21 @@ export default function CheckoutPage() {
   const discount = subtotal * 0.2; // 20% discount
   const total = subtotal - discount;
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
   const handlePlaceOrder = async () => {
     // Validate form and proceed with Stripe payment
+    if (!formValues.firstName || !formValues.lastName || !formValues.address || !formValues.city || !formValues.zipCode || !formValues.phone || !formValues.email) {
+      toast.error('Please fill out all fields');
+      return;
+    }
+
     const stripe = await stripePromise;
     const response = await fetch('/api/create-checkout-session', {
       method: 'POST',
@@ -71,11 +82,11 @@ export default function CheckoutPage() {
                     className="object-cover w-full h-full"
                   />
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-sm font-medium">{item.name}</h3>
+                <div className="flex-1 gap-44">
+                  <h3 className="text-lg font-bold">{item.name}</h3>
                   <p className="text-xs text-[#666666]">Quantity: {item.quantity}</p>
                 </div>
-                <p className="text-sm">${item.price * item.quantity}</p>
+                <p className="text-lg text-slate-600 font-bold ">${item.price * item.quantity}</p>
               </div>
             ))}
           </div>
@@ -84,7 +95,73 @@ export default function CheckoutPage() {
           <div className="border rounded-sm p-4 sm:p-6 space-y-4 w-full">
             <h2 className="text-xl sm:text-2xl font-medium mb-6">Billing Information</h2>
             <div className="space-y-4">
-              {/* Form fields for billing information */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  value={formValues.firstName}
+                  onChange={handleInputChange}
+                  className="p-2 border rounded-sm"
+                  required
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={formValues.lastName}
+                  onChange={handleInputChange}
+                  className="p-2 border rounded-sm"
+                  required
+                />
+              </div>
+              <input
+                type="text"
+                name="address"
+                placeholder="Address"
+                value={formValues.address}
+                onChange={handleInputChange}
+                className="p-2 border rounded-sm w-full"
+                required
+              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  value={formValues.city}
+                  onChange={handleInputChange}
+                  className="p-2 border rounded-sm"
+                  required
+                />
+                <input
+                  type="text"
+                  name="zipCode"
+                  placeholder="Zip Code"
+                  value={formValues.zipCode}
+                  onChange={handleInputChange}
+                  className="p-2 border rounded-sm"
+                  required
+                />
+              </div>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                value={formValues.phone}
+                onChange={handleInputChange}
+                className="p-2 border rounded-sm w-full"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formValues.email}
+                onChange={handleInputChange}
+                className="p-2 border rounded-sm w-full"
+                required
+              />
             </div>
 
             <div className="flex flex-col gap-6 justify-between py-3 text-sm sm:text-base">
@@ -93,8 +170,8 @@ export default function CheckoutPage() {
                 <span>${subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between py-3 border-b text-sm sm:text-base">
-                <span>Discount:</span>
-                <span>-${discount.toFixed(2)}</span>
+                <span className="text-red-600">Discount:</span>
+                <span className="font-bold">-${discount.toFixed(2)}</span>
               </div>
               <div className="flex justify-between py-3 border-b text-sm sm:text-base">
                 <span>Total:</span>
