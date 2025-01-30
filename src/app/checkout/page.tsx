@@ -78,8 +78,33 @@ export default function CheckoutPage() {
             // router.push('/checkout');
           }
         });
-    const Order = {
-      _type: "order",
+    // const Order = {
+    //   _type: "order",
+    //   firstName: formValues.firstName,
+    //   lastName: formValues.lastName,
+    //   address: formValues.address,
+    //   city: formValues.city,
+    //   zipCode: formValues.zipCode,
+    //   phone: formValues.phone,
+    //   email: formValues.email,
+    //   cartItems : cartItems.map((item) => ({
+    //     type: "reference",
+    //     ref: item.id,
+    //   })),
+    //   total: total,
+    //   // status: "Pending",
+    //   discount: discount,
+    //   orderDate: new Date().toISOString(),
+    // }
+    // try {
+    //   await client.create(Order);
+    //   localStorage.removeItem('appiedDiscount');
+    // } catch (error) {
+    //   console.error("Failed to create order", error);
+    // }
+
+    const orderData = {
+      _type: 'order',
       firstName: formValues.firstName,
       lastName: formValues.lastName,
       address: formValues.address,
@@ -87,21 +112,20 @@ export default function CheckoutPage() {
       zipCode: formValues.zipCode,
       phone: formValues.phone,
       email: formValues.email,
-      cartItems : cartItems.map((item) => ({
-        type: "reference",
-        ref: item.id,
+      cartItems: cartItems.map(item => ({
+        _type: 'reference',
+        _ref: item.id,  // Assuming cartItems have the correct product references
       })),
-      total: total,
-      // status: "Pending",
-      discount: discount,
-      orderDate: new Date().toISOString(),
-    }
-    try {
-      await client.create(Order);
-      localStorage.removeItem('appiedDiscount');
-    } catch (error) {
-      console.error("Failed to create order", error);
-    }
+      total: total,  // Make sure this value is being calculated
+      discount: discount,  // Add any discount if applicable
+      orderDate: new Date().toISOString(),  // Order date for when the order was placed
+    };
+   
+     try {
+        await client.create(orderData);
+        localStorage.removeItem('appiedDiscount');
+      } catch (error) {
+        console.error("Failed to create order", error);
   };
 
   return (
