@@ -1,4 +1,6 @@
-export default {
+import { defineType } from "sanity"
+
+export default  defineType({
     name: 'order',
     title: 'Order',
     type: 'document',
@@ -31,7 +33,7 @@ export default {
         {
         name: 'phone',
         title: 'Phone',
-        type: 'string',
+        type: 'number',
         },
         {
         name: 'email',
@@ -61,7 +63,7 @@ export default {
             ],
             layout: "radio",    // dropdown or radio
             },
-            initialvalue: "Pending", // default value
+            initialValue: "Pending", // default value
         }
     ],
-}
+})
