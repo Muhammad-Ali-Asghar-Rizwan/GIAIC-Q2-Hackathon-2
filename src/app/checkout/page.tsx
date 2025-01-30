@@ -170,8 +170,8 @@ export default function CheckoutPage() {
                 <span>${subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between py-3 border-b text-sm sm:text-base">
-                <span className="text-red-600">Discount:</span>
-                <span className="font-bold">-${discount.toFixed(2)}</span>
+                <span className="font-bold">Discount:</span>
+                <span className="text-red-600">-${discount.toFixed(2)}</span>
               </div>
               <div className="flex justify-between py-3 border-b text-sm sm:text-base">
                 <span>Total:</span>
@@ -181,7 +181,7 @@ export default function CheckoutPage() {
 
             <button
               onClick={handlePlaceOrder}
-              className="w-full h-10 sm:h-12 bg-blue-500 hover:bg-blue-800 rounded-sm mt-4 text-sm sm:text-base"
+              className="w-full h-10 sm:h-12 bg-blue-500 hover:bg-blue-800 text-white font-bold rounded-sm mt-4 text-lg sm:text-base"
             >
               Place Order
             </button>
