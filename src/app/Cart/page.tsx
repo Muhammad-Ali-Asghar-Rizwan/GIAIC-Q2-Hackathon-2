@@ -1,11 +1,14 @@
 "use client";
 import { FaRegTrashCan } from "react-icons/fa6";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/Store";
 import Image from "next/image";
 import { remove, incrementQuantity, decrementQuantity } from "../redux/Cartslice";
 import Link from "next/link";
+// import { useRouter } from "next/router";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 interface CartItem {
   id: number;
@@ -18,7 +21,11 @@ interface CartItem {
 const Cartpage: React.FC = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart);
+  // const [CartItems, setCartItems] = useState<Product[]>([]);
 
+  // useEffect(() => {
+  //   setCartItems(cartItems);
+  // }, []);
   const handleRemove = (id: number) => {
     dispatch(remove(id));
   };
@@ -30,6 +37,30 @@ const Cartpage: React.FC = () => {
   const handleDecrement = (id: number) => {
     dispatch(decrementQuantity(id));
   };
+  const router = useRouter();
+  const handleProeed = () => {
+    Swal.fire({
+      title: 'Success!',
+      text: 'Please wait your moment',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33', 
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (result.isConfirmed){
+          Swal.fire(
+            "success",
+            "Please wait your moment",
+            "success",
+          );
+          router.push('/checkout');
+          
+        }
+      }
+    });
+  }
 
   const subtotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -139,7 +170,7 @@ const Cartpage: React.FC = () => {
               Apply
             </button>
           </div>
-          <button className="w-full bg-black text-white py-3 rounded mt-4 flex items-center justify-center">
+          <button onClick={handleProeed} className="w-full bg-black text-white py-3 rounded mt-4 flex items-center justify-center">
             Go to Checkout
             <svg
               xmlns="http://www.w3.org/2000/svg"

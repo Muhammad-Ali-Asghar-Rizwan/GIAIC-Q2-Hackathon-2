@@ -4,7 +4,7 @@ import { CiHeart } from "react-icons/ci";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { Menu } from 'lucide-react';
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { IoSearch } from "react-icons/io5";
+import { MdOutlineAccountCircle } from "react-icons/md";
 
 import {
   Sheet,
@@ -73,18 +73,11 @@ function Navbar() {
     </nav>
 
     <div className="flex items-center">
-      {/* <IoSearchOutline className="w-[22.13px] h-[20.25px] relative left-3 md:left-8" />
-      <input
-        type="text"
-        placeholder="Search for products..."
-        className="hidden md:block w-[500] lg:w-[447px] h-[38px] rounded-[50px] bg-[#F5F5F5] placeholder:pl-11 "
-      /> */}
+      
       <div className='hidden md:flex'>
       <SearchBar />
       </div>
-             <button className="flex md:hidden text-2xl cursor-pointer">
-             <IoSearch />
-             </button>
+        
       <div className="flex gap-1 ml-4 items-center justify-center">
         <div className='flex items-center justify-center'>
         <Link href="/Cart">
@@ -95,6 +88,9 @@ function Navbar() {
         </Link>
         </div>
         <CiHeart className="w-[32.13px] h-[30.25px]" />
+        <Link href="/AdminPanel">
+        <MdOutlineAccountCircle className="w-[32.13px] h-[30.25px] " />
+        </Link>
       </div>
     </div>
   </div>
