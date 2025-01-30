@@ -10,6 +10,7 @@ import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import toast from "react-hot-toast";
 import { client } from "../../sanity/lib/client";
+import Swal from "sweetalert2";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -38,31 +39,45 @@ export default function CheckoutPage() {
   };
 
   const handlePlaceOrder = async () => {
-    // Validate form and proceed with Stripe payment
-    if (!formValues.firstName || !formValues.lastName || !formValues.address || !formValues.city || !formValues.zipCode || !formValues.phone || !formValues.email) {
-      toast.error('Please fill out all fields');
-      return;
-    }
+    // // Validate form and proceed with Stripe payment
+    // if (!formValues.firstName || !formValues.lastName || !formValues.address || !formValues.city || !formValues.zipCode || !formValues.phone || !formValues.email) {
+    //   toast.error('Please fill out all fields');
+    //   return;
+    // }
 
-    const stripe = await stripePromise;
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        cartItems,
-        formValues,
-        total,
-      }),
-    });
+    // const stripe = await stripePromise;
+    // const response = await fetch('/api/create-checkout-session', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     cartItems,
+    //     formValues,
+    //     total,
+    //   }),
+    // });
 
-    if (response.ok) {
-      const { id } = await response.json();
-      await stripe?.redirectToCheckout({ sessionId: id });
-    } else {
-      toast.error('Failed to create checkout session');
-    }
+    // if (response.ok) {
+    //   const { id } = await response.json();
+    //   await stripe?.redirectToCheckout({ sessionId: id });
+    // } else {
+    //   toast.error('Failed to create checkout session');
+    // }
+
+    Swal.fire({
+          title: 'Success!',
+          text: 'app ka order confirm ho chuka hai',
+          icon: 'success',
+          showCancelButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // router.push('/checkout');
+          }
+        });
     const Order = {
       _type: "order",
       firstName: formValues.firstName,
