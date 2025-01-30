@@ -1,6 +1,3 @@
-import { Layout } from "lucide-react";
-import { list } from "postcss";
-
 export default {
     name: 'order',
     title: 'Order',
