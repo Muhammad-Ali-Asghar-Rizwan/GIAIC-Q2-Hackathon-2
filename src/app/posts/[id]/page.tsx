@@ -460,7 +460,7 @@ export default function Post() {
             </div>
           )}
 
-          <div className="max-w-6xl mt-6 text-lg text-slate-700 w-full ">
+          <div className="max-w-6xl mx-12 mt-6 text-lg text-slate-700 w-full ">
             <h1 className="text-2xl sm:text-3xl md:text-[32px] lg:text-[40px] font-extrabold text-black">
               {post.name}
             </h1>
