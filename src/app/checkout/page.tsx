@@ -126,6 +126,7 @@ export default function CheckoutPage() {
         localStorage.removeItem('appiedDiscount');
       } catch (error) {
         console.error("Failed to create order", error);
+      }
   };
 
   return (
