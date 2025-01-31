@@ -2,17 +2,17 @@
 import React from 'react'
 import { CiHeart } from "react-icons/ci";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { Menu } from 'lucide-react';
+// import { Menu } from 'lucide-react';
 import { MdKeyboardArrowDown } from "react-icons/md";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '../ui/sheet';
+// import {
+//   Sheet,
+//   SheetContent,
+//   SheetDescription,
+//   SheetHeader,
+//   SheetTitle,
+//   SheetTrigger,
+// } from '../ui/sheet';
 import Link from 'next/link';
 import NavbarTop from './NavbarTop';
 import SearchBar from './Search';
@@ -20,10 +20,15 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../app/redux/Store';
 import { SignedIn,  SignedOut,  SignInButton, UserButton } from '@clerk/nextjs';
 
+import { GiHamburgerMenu } from "react-icons/gi";
 
 
+interface Props {
+  openNav:()=>void
+}
 
-function Navbar() {
+
+function Navbar({openNav}:Props) {
   const item = useSelector((state: RootState) => state.cart);
   return (
     <div className=''>
@@ -32,7 +37,7 @@ function Navbar() {
       <header className="max-w-7xl mx-auto body-font">
   <div className="flex items-center justify-between h-20 mx-5">
     {/* Move SheetTrigger (Menu Bar) here */}
-    <div className="lg:hidden ">
+    {/* <div className="lg:hidden ">
       <Sheet>
         <SheetTrigger>
           <Menu className='mt-2'/>
@@ -63,7 +68,10 @@ function Navbar() {
           </ul>
         </SheetContent>
       </Sheet>
-    </div>
+    </div> */}
+    
+    <div onClick={openNav} className='text-[35px] w-[2rem] md:hidden h-[2rem] cursor-pointer text-yellow-300 ml-4'><GiHamburgerMenu />
+            </div>
 
     <h1 className="text-[30px] font-extrabold ">Shop.Co</h1>
     {/* Navigation for Larger Screens */}
