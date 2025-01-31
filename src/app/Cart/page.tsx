@@ -228,6 +228,19 @@ const Cartpage: React.FC = () => {
 
   const handleRemove = (id: number) => {
     dispatch(remove(id));
+    Swal.fire({
+      title: 'Success!',
+      text: 'Item removed from cart',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+       
+      }
+    });
   };
 
   const handleIncrement = (id: number) => {

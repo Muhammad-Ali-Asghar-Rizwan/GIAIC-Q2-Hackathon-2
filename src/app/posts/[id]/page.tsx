@@ -396,7 +396,8 @@ import { sanityFetch } from "../../../sanity/lib/fetch";
 import { allProductsQuery } from "../../../sanity/lib/queries";
 import { addToCart } from "../../redux/Cartslice";
 import Review from "../Rating-Reviews/page";
-
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 type Product = {
   _id: string;
   name: string;
@@ -409,7 +410,7 @@ export default function Post() {
   const params = useParams();
   const dispatch = useDispatch();
   const [post, setPost] = useState<Product | null>(null);
-
+const router = useRouter();
   useEffect(() => {
     const fetchProducts = async () => {
       const fetchedProducts: Product[] = await sanityFetch({ query: allProductsQuery });
@@ -431,6 +432,19 @@ export default function Post() {
       }));
       alert(`${post.name} has been added to the cart!`);
     }
+    Swal.fire({
+          title: 'Success!',
+          text: 'Product has been added to the cart!',
+          icon: 'success',
+          showCancelButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            router.push('/cart');
+          }
+        });
   };
 
   const renderParagraphs = (description: string) => {
