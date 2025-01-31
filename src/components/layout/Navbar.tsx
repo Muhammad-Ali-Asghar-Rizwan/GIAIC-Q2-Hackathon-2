@@ -50,10 +50,15 @@ function Navbar() {
               <Link href="/" className="hover:text-gray-900 hover:cursor-pointer hover:underline">Contact</Link>
             </li>
             <li>
-              <Link href="/" className="hover:text-gray-900 hover:cursor-pointer hover:underline">New Arrival</Link>
+              <Link href="/Selling" className="hover:text-gray-900 hover:cursor-pointer hover:underline">New Arrival</Link>
             </li>
             <li>
               <Link href="/Category" className="hover:text-gray-900 hover:cursor-pointer hover:underline">Brands</Link>
+            </li>
+            <li>
+            <SignedOut>
+                  <SignInButton />
+                </SignedOut>
             </li>
           </ul>
         </SheetContent>

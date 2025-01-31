@@ -1,8 +1,29 @@
-/* @tailwind base;
+ @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
- 
+
+
+
+
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+} */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -58,15 +79,19 @@
     --chart-5: 340 75% 55%
   }
 }
-     
 @layer base {
   * {
-    @apply border-white;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
 }
+
+
+
+
+
 
 .bg1{
   background-image: url("/images/bg1.png");
@@ -106,11 +131,9 @@
   background-repeat: no-repeat;
 
 
-} */
+} 
 
-
-
-
+/* 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -208,4 +231,4 @@
 
 .Homeh1 {
   font-family: "Anton", sans-serif;
-}
+} */
