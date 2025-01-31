@@ -4,6 +4,26 @@
 
 
 
+
+
+/* 
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+ body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+} 
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -61,7 +81,7 @@
 }
 @layer base {
   * {
-    @apply border-white;
+    @apply border-border;
   }
   /* body {
     @apply bg-background text-foreground;
