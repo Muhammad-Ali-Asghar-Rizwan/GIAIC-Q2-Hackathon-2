@@ -1,13 +1,4 @@
 
-
-
-
-
-
-
-
-
-
 // sanity/schemas/order.js
 export default {
     name: 'order',

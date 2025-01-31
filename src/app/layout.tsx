@@ -6,7 +6,13 @@ import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ReduxProvider from "../components/layout/reduxprovider";
 import { SessionProvider } from "next-auth/react"
-
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -29,19 +35,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-         
-        <ReduxProvider>
-        <Navbar/>
-        {children}
-        <Footer/>
-        </ReduxProvider>
-        
-      
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body>
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+
+          <ReduxProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </ReduxProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

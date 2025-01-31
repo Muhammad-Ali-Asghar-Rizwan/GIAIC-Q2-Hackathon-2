@@ -4,7 +4,6 @@ import { CiHeart } from "react-icons/ci";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { Menu } from 'lucide-react';
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { MdOutlineAccountCircle } from "react-icons/md";
 
 import {
   Sheet,
@@ -19,6 +18,7 @@ import NavbarTop from './NavbarTop';
 import SearchBar from './Search';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/redux/Store';
+import { SignedIn,  SignedOut,  SignInButton, UserButton } from '@clerk/nextjs';
 
 
 
@@ -70,6 +70,9 @@ function Navbar() {
       <Link href="/Arrival" className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline">On Sale</Link>
       <Link href="/Selling" className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline">New Arrival</Link>
       <Link href="/category" className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline">Brands</Link>
+                <SignedOut>
+                  <SignInButton />
+                </SignedOut>
     </nav>
 
     <div className="flex items-center">
@@ -88,9 +91,10 @@ function Navbar() {
         </Link>
         </div>
         <CiHeart className="w-[32.13px] h-[30.25px]" />
-        <Link href="/AdminPanel">
-        <MdOutlineAccountCircle className="w-[32.13px] h-[30.25px] " />
-        </Link>
+
+        <SignedIn>
+        <UserButton />
+          </SignedIn>
       </div>
     </div>
   </div>
