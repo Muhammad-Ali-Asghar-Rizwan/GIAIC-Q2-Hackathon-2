@@ -83,9 +83,9 @@
   * {
     @apply border-white;
   }
-  /* body {
+  body {
     @apply bg-background text-foreground;
-  } */
+  }
 }
 
 
