@@ -11,6 +11,7 @@
     "import-data": "node importData.js"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.22.9",
     "@clerk/nextjs": "^6.10.5",
     "@floating-ui/react-dom": "^2.1.2",
     "@hookform/resolvers": "^3.10.0",
