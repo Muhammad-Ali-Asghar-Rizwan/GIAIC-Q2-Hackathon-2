@@ -1,15 +1,4 @@
-
-
-
-
-
-
-
-
-
-
 "use client";
-
 import { Check } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -34,7 +23,7 @@ export default function Post() {
   const params = useParams();
   const dispatch = useDispatch();
   const [post, setPost] = useState<Product | null>(null);
-const router = useRouter();
+  const router = useRouter();
   useEffect(() => {
     const fetchProducts = async () => {
       const fetchedProducts: Product[] = await sanityFetch({ query: allProductsQuery });
@@ -56,18 +45,18 @@ const router = useRouter();
       }));
     }
     Swal.fire({
-          title: 'Success!',
-          text: 'Product has been added to the cart!',
-          icon: 'success',
-          showCancelButton: true,
-          confirmButtonText: 'OK',
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            router.push('/Cart');
-          }
-        });
+      title: 'Success!',
+      text: 'Product has been added to the cart!',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.push('/Cart');
+      }
+    });
   };
 
   const renderParagraphs = (description: string) => {
@@ -97,7 +86,7 @@ const router = useRouter();
             </div>
           )}
 
-    <div className="px-8 mt-6 text-lg text-slate-700 w-full max-w-[600px]">
+          <div className="px-8 mt-6 text-lg text-slate-700 w-full max-w-[600px]">
             <h1 className="text-2xl sm:text-3xl md:text-[32px] lg:text-[40px] font-extrabold text-black">
               {post.name}
             </h1>
