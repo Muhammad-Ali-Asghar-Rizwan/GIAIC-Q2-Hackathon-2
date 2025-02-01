@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface CartItem {
-  color: BackgroundColor | undefined;
+  color: string | undefined;
   name: string;
   id: number;
   title: string;
