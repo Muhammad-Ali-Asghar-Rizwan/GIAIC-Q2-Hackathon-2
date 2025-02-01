@@ -460,7 +460,7 @@ const Cartpage: React.FC = () => {
         <div className="w-full lg:w-2/3 space-y-6">
           {cartItems.map((item) => (
             <div key={item.id} className="flex items-center bg-white shadow-md rounded-lg p-4">
-              <div className="w-32 h-32 flex-shrink-0 relative">
+              <div className="w-36 h-36 flex-shrink-0 relative">
                 <Image
                   src={item.imageUrl}
                   alt="Product"
@@ -473,7 +473,7 @@ const Cartpage: React.FC = () => {
               <div className="flex-grow px-4">
                 <h5 className="text-lg font-semibold text-black">{item.name}</h5>
                 <h5 className="text-lg font-semibold text-gray-600"><span className="text-black">Size: </span>{item.size}</h5>
-                <p className="text-sm text-gray-600"><span className="text-black">Color: </span>{item.color}</p>
+                <p className="text-sm text-gray-600"><span className="text-black font-semibold">Color: </span>{item.color}</p>
                 <h5 className="text-lg font-medium text-gray-800 mt-2">
                   ${item.price * item.quantity}
                 </h5>
