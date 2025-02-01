@@ -381,9 +381,6 @@
 
 
 
-
-
-
 "use client";
 import { FaRegTrashCan } from "react-icons/fa6";
 import React from "react";
@@ -474,8 +471,8 @@ const Cartpage: React.FC = () => {
               </div>
 
               <div className="flex-grow px-4">
-                <h5 className="text-lg font-semibold text-gray-800">{item.name}</h5>
-                <p className="text-sm text-gray-600">Color: <span style={{ backgroundColor: item.color }} className="inline-block w-4 h-4 rounded-full"></span></p>
+                <h5 className="text-lg font-semibold text-gray-800">{item.size}</h5>
+                <p className="text-sm text-gray-600">Color: {item.color}</p>
                 <h5 className="text-lg font-medium text-gray-800 mt-2">
                   ${item.price * item.quantity}
                 </h5>

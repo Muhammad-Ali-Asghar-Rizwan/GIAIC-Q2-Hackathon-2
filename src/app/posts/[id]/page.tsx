@@ -149,10 +149,6 @@
 
 
 
-
-
-
-
 "use client";
 import { Check } from "lucide-react";
 import Image from "next/image";
@@ -269,11 +265,11 @@ export default function Post() {
 
             <h1 className="text-sm mt-8">Select Colors</h1>
             <div className="flex gap-4 items-center mt-4">
-              {["#4F4631", "#314F4A", "#31344F"].map((color) => (
+              {["Brown", "Green", "Blue"].map((color) => (
                 <div
                   key={color}
                   className={`h-9 w-9 rounded-full cursor-pointer ${selectedColor === color ? 'border-2 border-black' : ''}`}
-                  style={{ backgroundColor: color }}
+                  style={{ backgroundColor: color.toLowerCase() }}
                   onClick={() => setSelectedColor(color)}
                 ></div>
               ))}

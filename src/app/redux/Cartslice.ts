@@ -8,6 +8,7 @@ interface CartItem {
   price: number;
   imageUrl: string;
   quantity: number;
+  size: string | undefined;
 }
 
 const initialState: CartItem[] = [];
