@@ -460,7 +460,7 @@ const Cartpage: React.FC = () => {
         <div className="w-full lg:w-2/3 space-y-6">
           {cartItems.map((item) => (
             <div key={item.id} className="flex items-center bg-white shadow-md rounded-lg p-4">
-              <div className="w-24 h-24 flex-shrink-0 relative">
+              <div className="w-32 h-32 flex-shrink-0 relative">
                 <Image
                   src={item.imageUrl}
                   alt="Product"
