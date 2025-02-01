@@ -1,5 +1,6 @@
 
 
+import { SignedOut, SignInButton } from '@clerk/clerk-react';
 import Link from 'next/link';
 import React from 'react';
 import { RiCloseFill } from "react-icons/ri";
@@ -14,7 +15,9 @@ function NavbarTop() {
       <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2 text-sm md:text-base">
         <p className="hidden sm:block text-[17px] sm:tex-[12] truncate">
         Sign up and get 20% off to your first order. 
-        <span className='text-[14px] sm:text-[18px]'> Sign Up Now </span>
+        <span className='text-[14px] sm:text-[18px]'>  <SignedOut>
+                  <SignInButton />
+                </SignedOut></span>
         </p>
         <Link href="/" className="flex sm:hidden font-bold underline">ShopNow</Link>
       </div>

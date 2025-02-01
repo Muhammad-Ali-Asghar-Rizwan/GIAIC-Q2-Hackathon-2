@@ -41,7 +41,7 @@ export default function RootLayout({
          
 
           <ReduxProvider>
-            <Navbar openNav={() => { /* implement openNav function here */ }} />
+            <Navbar />
             {children}
             <Footer />
           </ReduxProvider>

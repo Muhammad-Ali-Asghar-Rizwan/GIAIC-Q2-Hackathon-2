@@ -5,14 +5,14 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 // import { Menu } from 'lucide-react';
 import { MdKeyboardArrowDown } from "react-icons/md";
 
-// import {
-//   Sheet,
-//   SheetContent,
-//   SheetDescription,
-//   SheetHeader,
-//   SheetTitle,
-//   SheetTrigger,
-// } from '../ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '../ui/sheet';
 import Link from 'next/link';
 import NavbarTop from './NavbarTop';
 import SearchBar from './Search';
@@ -20,15 +20,10 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../app/redux/Store';
 import { SignedIn,  SignedOut,  SignInButton, UserButton } from '@clerk/nextjs';
 
-import { GiHamburgerMenu } from "react-icons/gi";
+import { Menu } from 'lucide-react';
 
 
-interface Props {
-  openNav:()=>void
-}
-
-
-function Navbar({openNav}:Props) {
+function Navbar() {
   const item = useSelector((state: RootState) => state.cart);
   return (
     <div className=''>
@@ -37,15 +32,15 @@ function Navbar({openNav}:Props) {
       <header className="max-w-7xl mx-auto body-font">
   <div className="flex items-center justify-between h-20 mx-5">
     {/* Move SheetTrigger (Menu Bar) here */}
-    {/* <div className="lg:hidden ">
+    <div className="lg:hidden ">
       <Sheet>
         <SheetTrigger>
           <Menu className='mt-2'/>
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent side="left">
           <SheetHeader>
             <SheetTitle>MENU</SheetTitle>
-            <SheetDescription>Click outside to close</SheetDescription>
+            {/* <SheetDescription>Click outside to close</SheetDescription> */}
           </SheetHeader>
           <ul className="flex flex-col gap-5 mt-6">
             <li>
@@ -68,10 +63,8 @@ function Navbar({openNav}:Props) {
           </ul>
         </SheetContent>
       </Sheet>
-    </div> */}
-    
-    <div onClick={openNav} className='text-[35px] w-[2rem] md:hidden h-[2rem] cursor-pointer text-yellow-300 ml-4'><GiHamburgerMenu />
-            </div>
+    </div>
+   
 
     <h1 className="text-[30px] font-extrabold ">Shop.Co</h1>
     {/* Navigation for Larger Screens */}
