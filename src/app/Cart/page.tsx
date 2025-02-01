@@ -472,8 +472,8 @@ const Cartpage: React.FC = () => {
 
               <div className="flex-grow px-4">
                 <h5 className="text-lg font-semibold text-black">{item.name}</h5>
-                <h5 className="text-lg font-semibold text-gray-600">{item.size}</h5>
-                <p className="text-sm text-gray-600">Color: {item.color}</p>
+                <h5 className="text-lg font-semibold text-gray-600"><span className="text-black">Size: </span>{item.size}</h5>
+                <p className="text-sm text-gray-600"><span className="text-black">Color: </span>{item.color}</p>
                 <h5 className="text-lg font-medium text-gray-800 mt-2">
                   ${item.price * item.quantity}
                 </h5>
