@@ -39,31 +39,47 @@ export default function CheckoutPage() {
   };
 
   const handlePlaceOrder = async () => {
-    // // Validate form and proceed with Stripe payment
-    // if (!formValues.firstName || !formValues.lastName || !formValues.address || !formValues.city || !formValues.zipCode || !formValues.phone || !formValues.email) {
-    //   toast.error('Please fill out all fields');
-    //   return;
-    // }
+    // Validate form and proceed with Stripe payment
+    if (!formValues.firstName || !formValues.lastName || !formValues.address || !formValues.city || !formValues.zipCode || !formValues.phone || !formValues.email) {
+      toast.error('Please fill out all fields');
+      return;
+    }
 
-    // const stripe = await stripePromise;
-    // const response = await fetch('/api/create-checkout-session', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     cartItems,
-    //     formValues,
-    //     total,
-    //   }),
-    // });
+    const stripe = await stripePromise;
+    const response = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        cartItems,
+        formValues,
+        total,
+      }),
+    });
 
-    // if (response.ok) {
-    //   const { id } = await response.json();
-    //   await stripe?.redirectToCheckout({ sessionId: id });
-    // } else {
-    //   toast.error('Failed to create checkout session');
-    // }
+    if (response.ok) {
+      const { id } = await response.json();
+      await stripe?.redirectToCheckout({ sessionId: id });
+    } else {
+      toast.error('Failed to create checkout session');
+    }
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ allproducts: cartItems }),
+      });
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error("Error during checkout", error);
+      toast.error('Failed to create checkout session');
+    }
 
     Swal.fire({
           title: 'Success!',
