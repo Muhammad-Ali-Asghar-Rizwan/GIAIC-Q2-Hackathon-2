@@ -110,7 +110,7 @@ export const allproducts = defineQuery(`
 `)
 
 export const CategoryQueries = defineQuery(`
-    *[_type == "products"]{
+    *[_type == "products"][0...17]{
     _id,
     name,
     price,
