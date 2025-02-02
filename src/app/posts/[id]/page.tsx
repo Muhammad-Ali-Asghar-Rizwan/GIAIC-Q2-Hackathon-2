@@ -157,11 +157,11 @@ import { FaStar, FaStarHalf } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { sanityFetch } from "../../../sanity/lib/fetch";
-import { allProductsQuery } from "../../../sanity/lib/queries";
 import { addToCart } from "../../redux/Cartslice";
 import Review from "../Rating-Reviews/page";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { allproducts } from "../../../sanity/lib/queries";
 
 type Product = {
   _id: string;
@@ -181,7 +181,7 @@ export default function Post() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const fetchedProducts: Product[] = await sanityFetch({ query: allProductsQuery });
+      const fetchedProducts: Product[] = await sanityFetch({ query: allproducts });
       const product = fetchedProducts.find((p) => p._id === params?.id);
       setPost(product || null);
     };

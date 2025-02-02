@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import Image from 'next/image';
 import { sanityFetch } from '../../sanity/lib/fetch';
-import {  fourProducts2 } from '../../sanity/lib/queries';
+import { arrival_fourproducts } from '../../sanity/lib/queries';
 
 type Product = {
   _id:string,
@@ -16,7 +16,7 @@ type Product = {
 
 const  Arrival = async () => {
 
-  const products:Product[] = await sanityFetch({query:fourProducts2}) 
+  const products:Product[] = await sanityFetch({query:arrival_fourproducts}) 
 
 
 
