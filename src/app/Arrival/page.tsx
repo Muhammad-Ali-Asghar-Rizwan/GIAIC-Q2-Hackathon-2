@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-// import { fourProducts, fourProducts2 } from '@/sanity/lib/queries';
-// import { sanityFetch } from '@/sanity/lib/fetch';
+
 import Image from 'next/image';
 import { sanityFetch } from '../../sanity/lib/fetch';
 import {  fourProducts2 } from '../../sanity/lib/queries';
@@ -15,7 +14,7 @@ type Product = {
 }
 
 
-const  Selling = async () => {
+const  Arrival = async () => {
 
   const products:Product[] = await sanityFetch({query:fourProducts2}) 
 
@@ -73,5 +72,4 @@ const  Selling = async () => {
   );
 };
 
-export default Selling;
-
+export default Arrival;

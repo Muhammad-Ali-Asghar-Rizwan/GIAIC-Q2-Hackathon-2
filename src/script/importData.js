@@ -4,7 +4,7 @@ const client = createClient({
   projectId: 'p98zwfgl',
   dataset: 'production',
   useCdn: false,
-  apiVersion: '2021-03-25',
+  apiVersion: '2021-01-13',
   token:process.env.SANITY_API_TOKEN,
 });
 
@@ -56,7 +56,7 @@ async function uploadProduct(product) {
       };
 
       const createdProduct = await client.create(document);
-      console.log(`Product ${product.name} uploaded successfully:`, createdProduct);
+      console.log(`Product ${product.name} uploaded successfully:, createdProduct`);
     } else {
       console.log(`Product ${product.name} skipped due to image upload failure.`);
     }

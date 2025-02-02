@@ -17,7 +17,7 @@ export const like_fourproducts = defineQuery(`
   "imageUrl": image.asset->url
   }
 `)
-export const allProductsQuery = `
+export const allProductsQuery = defineQuery(` 
   *[_type == "products"]{
     _id, 
     name,
@@ -30,30 +30,26 @@ export const allProductsQuery = `
     sizes,
     "imageUrl": image.asset->url
   }
-// `;export const allProductsQuery2 = `
-*[_type == "products"] | order(_createdAt asc) {
-  _id,
-  name,
-  price,
-  description,
-  category,
-  discountPercent,
-  new,
-  colors,
-  sizes,
-  "imageUrl": image.asset->url
-}
-`;
+`)
 
-export const allCategoriesQuery = `
-*[_type == "category"] | order(_createdAt asc) {
-  _id,
-  title
-}
-`;
 
+export const CategoryQueries = `
+  *[_type == "products"][0...13]{
+    _id, 
+    name,
+    price,
+    description,
+    category,
+    discountPercent,
+    new,
+    colors,
+    sizes,
+    "imageUrl": image.asset->url
+  }
+
+`
 export  const fourProducts = defineQuery(`
-    *[_type == "products"][0..3]{
+    *[_type == "products"]{
     _id, 
     name,
     price,
