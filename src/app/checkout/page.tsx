@@ -40,30 +40,34 @@ export default function CheckoutPage() {
 
   const handlePlaceOrder = async () => {
     // Validate form and proceed with Stripe payment
-    if (!formValues.firstName || !formValues.lastName || !formValues.address || !formValues.city || !formValues.zipCode || !formValues.phone || !formValues.email) {
-      toast.error('Please fill out all fields');
-      return;
-    }
+    // if (!formValues.firstName || !formValues.lastName || !formValues.address || !formValues.city || !formValues.zipCode || !formValues.phone || !formValues.email) {
+    //   toast.error('Please fill out all fields');
+    //   return;
+    // }
 
-    const stripe = await stripePromise;
-    const response = await fetch('/api/checkout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        cartItems,
-        formValues,
-        total,
-      }),
-    });
+    // const stripe = await stripePromise;
+    // const response = await fetch('/api/checkout', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     cartItems,
+    //     formValues,
+    //     total,
+    //   }),
+    // });
 
-    if (response.ok) {
-      const { id } = await response.json();
-      await stripe?.redirectToCheckout({ sessionId: id });
-    } else {
-      toast.error('Failed to create checkout session');
-    }
+    // if (response.ok) {
+    //   const { id } = await response.json();
+    //   await stripe?.redirectToCheckout({ sessionId: id });
+    // } else {
+    //   toast.error('Failed to create checkout session');
+    // }
+
+
+
+
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
@@ -80,7 +84,6 @@ export default function CheckoutPage() {
       console.error("Error during checkout", error);
       toast.error('Failed to create checkout session');
     }
-
     Swal.fire({
           title: 'Success!',
           text: 'app ka order confirm ho chuka hai',
@@ -94,30 +97,6 @@ export default function CheckoutPage() {
             // router.push('/checkout');
           }
         });
-    // const Order = {
-    //   _type: "order",
-    //   firstName: formValues.firstName,
-    //   lastName: formValues.lastName,
-    //   address: formValues.address,
-    //   city: formValues.city,
-    //   zipCode: formValues.zipCode,
-    //   phone: formValues.phone,
-    //   email: formValues.email,
-    //   cartItems : cartItems.map((item) => ({
-    //     type: "reference",
-    //     ref: item.id,
-    //   })),
-    //   total: total,
-    //   // status: "Pending",
-    //   discount: discount,
-    //   orderDate: new Date().toISOString(),
-    // }
-    // try {
-    //   await client.create(Order);
-    //   localStorage.removeItem('appiedDiscount');
-    // } catch (error) {
-    //   console.error("Failed to create order", error);
-    // }
 
     const orderData = {
       _type: 'order',
