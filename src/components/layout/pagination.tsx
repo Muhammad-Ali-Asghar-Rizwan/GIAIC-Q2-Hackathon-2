@@ -26,21 +26,21 @@ function Paginationpage() {
     </PaginationItem>
 
     <PaginationItem className="hidden lg:block">
-      <PaginationLink href="/sell">Top Sell</PaginationLink>
+      <PaginationLink href="/Selling">Top Sell</PaginationLink>
     </PaginationItem>
     <PaginationItem className="hidden lg:block">
       <PaginationEllipsis />
     </PaginationItem>
 
     <PaginationItem>
-      <PaginationLink href="/brand">Brands</PaginationLink>
+      <PaginationLink href="/Category">Brands</PaginationLink>
     </PaginationItem>
     <PaginationItem>
       <PaginationEllipsis />
     </PaginationItem>
 
     <PaginationItem>
-      <PaginationNext href="/cart" />
+      <PaginationNext href="/Cart" />
     </PaginationItem>
   </PaginationContent>
 </Pagination>
