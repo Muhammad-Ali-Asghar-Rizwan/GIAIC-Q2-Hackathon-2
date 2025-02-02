@@ -140,7 +140,7 @@ export default function Casualpage(){
 
 
     return(
-        <div className="mt-5 md:mt-28 lg:mt-32 max-w-screen-2xl pt-2   mx-auto">
+        <div className="  max-w-screen-2xl pt-2   mx-auto">
             <BreadcrumbCollapsed/>
             {/* start */}
             <div className="flex flex-col items-center md:flex-row  p-5  justify-center md:items-start md:space-x-4 mt-5">
