@@ -48,7 +48,7 @@ export default function Casualpage(){
   useEffect(() => {
     async function fetchProducts() {
       const data = await client.fetch(`
-        *[_type == "products"]{
+        *[_type == "products"][0...15]{
           _id, // Include the product ID for linking
           name,
           price,
