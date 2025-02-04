@@ -167,11 +167,11 @@ interface RootState {
 
 function Navbar() {
   // Ensure cartItems has a default empty array
-  // const cartItems = useSelector((state: RootState) => state.cart.items) || [];
-    const item = useSelector((state: RootState) => state.cart);
+  const cartItems = useSelector((state: RootState) => state.cart.items) || [];
+    // const item = useSelector((state: RootState) => state.cart);
 
 
-  // const totalQuantity = cartItems.reduce((acc, item) => acc + (item.quantity || 0), 0);
+  const totalQuantity = cartItems.reduce((acc, item) => acc + (item.quantity || 0), 0);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
@@ -286,7 +286,7 @@ function Navbar() {
                    <Link href="/Cart">
                    <MdOutlineShoppingCart className="w-[32.13px] h-[30.25px] mt-5" />
                    <p className='bg-red-500 rounded-full h-5 w-5 text-white flex items-center justify-center relative  bottom-10 left-4'>
-                       {item.length}
+                       {totalQuantity.length}
                      </p>
                  </Link>
                </div>
