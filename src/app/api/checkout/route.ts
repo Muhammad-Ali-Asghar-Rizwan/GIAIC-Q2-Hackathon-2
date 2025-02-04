@@ -80,12 +80,9 @@
 
 
 
-
-
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { client } from '../../../sanity/lib/client';
-// import { client } from '../../../../sanity/lib/client';
 
 const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY!, {
   apiVersion: '2025-01-27.acacia',
@@ -94,6 +91,8 @@ const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY!, {
 export const POST = async (request: Request) => {
   try {
     const { allproducts, formValues, total, discount } = await request.json();
+    console.log('Received data:', { allproducts, formValues, total, discount });
+
     let activeProducts = await stripe.products.list({ active: true });
 
     // 1. Find products from stripe that matches products from cart.
@@ -158,6 +157,8 @@ export const POST = async (request: Request) => {
       orderDate: new Date().toISOString(),
       status: 'pending',
     };
+
+    console.log('Order data to be saved:', orderData);
 
     await client.create(orderData);
 
