@@ -15,7 +15,7 @@ import {structure} from './src/sanity/structure'
 
 export default defineConfig({
   basePath: '/studio',
-  projectId,
+  projectId : "p98zwfgl",
   dataset,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
@@ -26,3 +26,6 @@ export default defineConfig({
     visionTool({defaultApiVersion: apiVersion}),
   ],
 })
+
+
+
