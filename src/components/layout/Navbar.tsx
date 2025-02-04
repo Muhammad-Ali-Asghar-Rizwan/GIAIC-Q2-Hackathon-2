@@ -255,7 +255,7 @@ function Navbar() {
       <DropdownMenuTrigger><MdKeyboardArrowDown /></DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="bg-black border-white mt-3 px-5 rounded-sm text-white">
+        <DropdownMenuItem className="bg-black border-white mt-3 px-2 rounded-lg text-white">
           <Link href="/Category" className="hover:underline">Category</Link>
         </DropdownMenuItem>
         {/* <DropdownMenuItem>Billing</DropdownMenuItem> */}
