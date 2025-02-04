@@ -73,42 +73,54 @@
 
 
 
-import type { NextApiRequest, NextApiResponse } from 'next';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { NextResponse } from 'next/server';
 import { client } from '../../../sanity/lib/client';
-// import { client } from '../../sanity/lib/client';
+// import { client } from '../../../../sanity/lib/client';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    const { allproducts, formValues, total, discount } = req.body;
+export async function POST(request: Request) {
+  const { allproducts, formValues, total, discount } = await request.json();
 
-    const orderData = {
-      _type: 'order',
-      firstName: formValues.firstName,
-      lastName: formValues.lastName,
-      address: formValues.address,
-      city: formValues.city,
-      zipCode: formValues.zipCode,
-      phone: formValues.phone,
-      email: formValues.email,
-      cartItems: allproducts.map((item: any) => ({
-        _type: 'reference',
-        _ref: item.id,
-      })),
-      total: total,
-      discount: discount,
-      orderDate: new Date().toISOString(),
-      status: 'pending',
-    };
+  const orderData = {
+    _type: 'order',
+    firstName: formValues.firstName,
+    lastName: formValues.lastName,
+    address: formValues.address,
+    city: formValues.city,
+    zipCode: formValues.zipCode,
+    phone: formValues.phone,
+    email: formValues.email,
+    cartItems: allproducts.map((item: any) => ({
+      _type: 'reference',
+      _ref: item.id,
+    })),
+    total: total,
+    discount: discount,
+    orderDate: new Date().toISOString(),
+    status: 'pending',
+  };
 
-    try {
-      await client.create(orderData);
-      res.status(200).json({ message: 'Order created successfully' });
-    } catch (error) {
-      console.error('Failed to create order', error);
-      res.status(500).json({ message: 'Failed to create order' });
-    }
-  } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+  try {
+    await client.create(orderData);
+    return NextResponse.json({ message: 'Order created successfully' });
+  } catch (error) {
+    console.error('Failed to create order', error);
+    return NextResponse.json({ message: 'Failed to create order' }, { status: 500 });
   }
 }
