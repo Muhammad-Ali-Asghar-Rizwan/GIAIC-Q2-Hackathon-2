@@ -15,114 +15,211 @@ import Swal from "sweetalert2";
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function CheckoutPage() {
-  const cartItems = useSelector((state: RootState) => state.cart);
+  // const cartItems = useSelector((state: RootState) => state.cart);
+  // const [formValues, setFormValues] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   address: "",
+  //   city: "",
+  //   zipCode: "",
+  //   phone: "",
+  //   email: "",
+  // });
+
+  // const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  // const discount = subtotal * 0.2; // 20% discount
+  // const total = subtotal - discount;
+
+  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormValues({
+  //     ...formValues,
+  //     [name]: value,
+  //   });
+  // };
+
+  // const handlePlaceOrder = async () => {
+  //   try {
+  //     const response = await fetch('/api/checkout', {
+  //       method: 'POST',
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({ allproducts: cartItems }),
+  //     });
+  //     const data = await response.json();
+  //     if (data.url) {
+  //       window.location.href = data.url;
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during checkout", error);
+  //     toast.error('Failed to create checkout session');
+  //   }
+  //   Swal.fire({
+  //         title: 'Success!',
+  //         text: 'app ka order confirm ho chuka hai',
+  //         icon: 'success',
+  //         showCancelButton: true,
+  //         confirmButtonText: 'OK',
+  //         confirmButtonColor: '#3085d6',
+  //         cancelButtonColor: '#d33',
+  //       }).then((result) => {
+  //         if (result.isConfirmed) {
+  //           // router.push('/checkout');
+  //         }
+  //       });
+
+  //   const orderData = {
+  //     _type: 'order',
+  //     firstName: formValues.firstName,
+  //     lastName: formValues.lastName,
+  //     address: formValues.address,
+  //     city: formValues.city,
+  //     zipCode: formValues.zipCode,
+  //     phone: formValues.phone,
+  //     email: formValues.email,
+  //     cartItems: cartItems.map(item => ({
+  //       _type: 'reference',
+  //       _ref: item.id,  // Assuming cartItems have the correct product references
+  //     })),
+  //     total: total,  // Make sure this value is being calculated
+  //     discount: discount,  // Add any discount if applicable
+  //     orderDate: new Date().toISOString(),  // Order date for when the order was placed
+  //   };
+   
+  //    try {
+  //       await client.create(orderData);
+  //       localStorage.removeItem('appiedDiscount');
+  //     } catch (error) {
+  //       console.error("Failed to create order", error);
+  //     }
+  // };
+
+
+
+
+  const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [discount, setDiscount] = useState<number>(0); // State for discount
   const [formValues, setFormValues] = useState({
-    firstName: "",
-    lastName: "",
-    address: "",
-    city: "",
-    zipCode: "",
-    phone: "",
-    email: "",
+      firstName: '',
+      lastName: '',
+      address: '',
+      city: '',
+      zipCode: '',
+      phone: '',
+      email: ''
+  });
+  const [formErrors, setFormErrors] = useState({
+      firstName: false,
+      lastName: false,
+      address: false,
+      city: false,
+      zipCode: false,
+      phone: false,
+      email: false
   });
 
+  useEffect(() => {
+      setCartItems(getCartItems());
+      const appliedDiscount = localStorage.getItem("appliedDiscount");
+      if (appliedDiscount) {
+          setDiscount(Number(appliedDiscount));
+      }
+  }, []);
+
   const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  const discount = subtotal * 0.2; // 20% discount
-  const total = subtotal - discount;
+  const total = Math.max(subtotal - discount, 0);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+      setFormValues({
+          ...formValues,
+          [e.target.id]: e.target.value
+      });
   };
 
-  const handlePlaceOrder = async () => {
-    // Validate form and proceed with Stripe payment
-    // if (!formValues.firstName || !formValues.lastName || !formValues.address || !formValues.city || !formValues.zipCode || !formValues.phone || !formValues.email) {
-    //   toast.error('Please fill out all fields');
-    //   return;
-    // }
+  const validateForm = () => {
+      const errors = {
+          firstName: !formValues.firstName,
+          lastName: !formValues.lastName,
+          address: !formValues.address,
+          city: !formValues.city,
+          zipCode: !formValues.zipCode,
+          phone: !formValues.phone,
+          email: !formValues.email
+      };
+      setFormErrors(errors);
+      return Object.values(errors).every((error) => !error);
+  };
 
-    // const stripe = await stripePromise;
-    // const response = await fetch('/api/checkout', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     cartItems,
-    //     formValues,
-    //     total,
-    //   }),
-    // });
+  
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
-    // if (response.ok) {
-    //   const { id } = await response.json();
-    //   await stripe?.redirectToCheckout({ sessionId: id });
-    // } else {
-    //   toast.error('Failed to create checkout session');
-    // }
-
-
-
-
+const handlePlaceOrder = async () => {
+  if (validateForm()) {
     try {
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ allproducts: cartItems }),
-      });
-      const data = await response.json();
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (error) {
-      console.error("Error during checkout", error);
-      toast.error('Failed to create checkout session');
-    }
-    Swal.fire({
-          title: 'Success!',
-          text: 'app ka order confirm ho chuka hai',
-          icon: 'success',
-          showCancelButton: true,
-          confirmButtonText: 'OK',
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // router.push('/checkout');
-          }
+      // Step 1: Create the order in Sanity
+      const orderData = {
+        _type: 'order',
+        firstName: formValues.firstName,
+        lastName: formValues.lastName,
+        address: formValues.address,
+        city: formValues.city,
+        zipCode: formValues.zipCode,
+        phone: formValues.phone,
+        email: formValues.email,
+        cartItems: cartItems.map(item => ({
+          _type: 'reference',
+          _ref: item._id,  // Assuming cartItems have the correct product references
+        })),
+        total: total,  // Make sure this value is being calculated
+        discount: discount,  // Add any discount if applicable
+        orderDate: new Date().toISOString(),  // Order date for when the order was placed
+      };
+
+      // Send the order data to Sanity
+      const orderResponse = await client.create(orderData);
+      if (orderResponse) {
+        // Order created successfully in Sanity
+
+        // Step 2: Proceed with Stripe payment
+        const stripe = await stripePromise;
+        const response = await fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            cartItems,
+            formValues,
+            total,
+          }),
         });
 
-    const orderData = {
-      _type: 'order',
-      firstName: formValues.firstName,
-      lastName: formValues.lastName,
-      address: formValues.address,
-      city: formValues.city,
-      zipCode: formValues.zipCode,
-      phone: formValues.phone,
-      email: formValues.email,
-      cartItems: cartItems.map(item => ({
-        _type: 'reference',
-        _ref: item.id,  // Assuming cartItems have the correct product references
-      })),
-      total: total,  // Make sure this value is being calculated
-      discount: discount,  // Add any discount if applicable
-      orderDate: new Date().toISOString(),  // Order date for when the order was placed
-    };
-   
-     try {
-        await client.create(orderData);
-        localStorage.removeItem('appiedDiscount');
-      } catch (error) {
-        console.error("Failed to create order", error);
+        if (response.ok) {
+          const { id } = await response.json();
+          await stripe?.redirectToCheckout({ sessionId: id });
+        } else {
+          const error = await response.json();
+          toast.error(error.message || 'Failed to create checkout session');
+        }
+      } else {
+        toast.error('Failed to create order in Sanity');
       }
-  };
+    } catch (error) {
+      toast.error('An error occurred while processing your request.');
+      console.error(error);
+    }
+  } else {
+    toast.error('Please fill in all the fields');
+  }
+};
+
+
+
+
+
+
+
 
   return (
     <div className="min-h-screen bg-white">
