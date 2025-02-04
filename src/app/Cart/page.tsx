@@ -513,10 +513,10 @@ const Cartpage: React.FC = () => {
             <p>Subtotal</p>
             <p>${subtotal.toFixed(2)}</p>
           </div>
-          <div className="flex justify-between text-gray-600">
+          {/* <div className="flex justify-between text-gray-600">
             <p>Discount (-20%)</p>
             <p className="text-red-500 font-semibold">-${discount.toFixed(2)}</p>
-          </div>
+          </div> */}
           <div className="flex justify-between text-gray-600">
             <p>Delivery Fee</p>
             <p>${deliveryFee.toFixed(2)}</p>
