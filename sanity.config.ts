@@ -39,8 +39,9 @@
 import { defineConfig } from 'sanity';
 import { deskTool } from 'sanity/desk';
 import { visionTool } from '@sanity/vision';
-import  schemas  from './src/sanity/schemaTypes/schemas';
+// import  schemas  from './src/sanity/schemaTypes/schemas';
 import deskStructure from './src/sanity/schemaTypes/deskStructure';
+import product from './src/sanity/schemaTypes/product';
 export default defineConfig({
   name: 'default',
   title: 'Your Project Title',
@@ -56,6 +57,6 @@ export default defineConfig({
   ],
 
   schema: {
-    types: schemas,
+    types: [product],
   },
 });
