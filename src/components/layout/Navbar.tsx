@@ -150,6 +150,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-reac
 import Image from "next/image";
 import { sanityFetch } from "../../sanity/lib/fetch";
 import { allproducts } from "../../sanity/lib/queries";
+import NavbarTop from "./NavbarTop";
 
 // Define Product type
 interface Product {
@@ -168,6 +169,7 @@ interface RootState {
 function Navbar() {
   // Ensure cartItems has a default empty array
   const cartItems = useSelector((state: RootState) => state.cart.items) || [];
+
   const totalQuantity = cartItems.reduce((acc, item) => acc + (item.quantity || 0), 0);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -205,6 +207,7 @@ function Navbar() {
 
   return (
     <div>
+      <NavbarTop />
       <header className="max-w-7xl mx-auto body-font relative z-20">
         <div className="flex items-center justify-between h-20 mx-5 lg:mx-8">
           {/* Mobile Menu */}
@@ -230,42 +233,24 @@ function Navbar() {
           <h1 className="text-[28px] lg:text-[35px] font-extrabold">Shop.Co</h1>
 
           {/* Desktop Navigation */}
-          {/* <nav className="hidden lg:flex gap-6 text-lg">
-  <Link href="/" className="hover:underline flex items-center gap-1">
-    Shop
-    <DropdownMenu>
-      <DropdownMenuTrigger><MdKeyboardArrowDown /></DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Link href="/category" className="hover:underline">Category</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  </Link>
-  <Link href="/Homepage4" className="hover:underline">On Sale</Link>
-  <Link href="/Homepage3" className="hover:underline">New Arrival</Link>
-  <Link href="/category" className="hover:underline">Brands</Link>
-</nav> */}
-<nav className="hidden lg:flex gap-6 text-lg">
-  <Link href="/" className="hover:underline flex items-center gap-1">
-    Shop
-    <DropdownMenu>
-      <DropdownMenuTrigger><MdKeyboardArrowDown /></DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="bg-black border-white mt-3 px-2 rounded-lg text-white">
-          <Link href="/category" className="hover:underline">Category</Link>
-        </DropdownMenuItem>
-        {/* <DropdownMenuItem>Billing</DropdownMenuItem> */}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  </Link>
-  <Link href="/Homepage4" className="hover:underline">On Sale</Link>
-  <Link href="/Homepage3" className="hover:underline">New Arrival</Link>
-  <Link href="/category" className="hover:underline">Brands</Link>
-</nav>
+          <nav className="hidden lg:flex gap-6 text-lg">
+            <Link href="/" className="hover:underline flex items-center gap-1">
+              Shop
+              <DropdownMenu>
+                <DropdownMenuTrigger><MdKeyboardArrowDown /></DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className="bg-black border-white mt-3 px-2 rounded-lg text-white">
+                    <Link href="/category" className="hover:underline">Category</Link>
+                  </DropdownMenuItem>
+                  {/* <DropdownMenuItem>Billing</DropdownMenuItem> */}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </Link>
+            <Link href="/Homepage4" className="hover:underline">On Sale</Link>
+            <Link href="/Homepage3" className="hover:underline">New Arrival</Link>
+            <Link href="/category" className="hover:underline">Brands</Link>
+          </nav>
 
 
           {/* Search and Cart */}
@@ -278,7 +263,7 @@ function Navbar() {
               placeholder="Search for products..."
               className="hidden md:block w-72 lg:w-96 h-10 rounded-full pl-10 pr-4 bg-gray-100 border border-gray-300 focus:ring-gray-400"
             />
-            <div className="flex items-center gap-4 ml-4">
+            {/* <div className="flex items-center gap-4 ml-4">
               <Link href="/cart" className="relative">
                 <MdOutlineShoppingCart className="w-8 h-10" />
                 {totalQuantity > 0 && (
@@ -294,7 +279,20 @@ function Navbar() {
               </Link>
               <CiHeart className="w-6 h-6" />
               <SignedIn><UserButton /></SignedIn>
-            </div>
+            </div> */}
+              <div className="flex gap-1 ml-4 items-center justify-center">
+                 <div className='flex items-center justify-center'>
+                   <Link href="/Cart">
+                   <MdOutlineShoppingCart className="w-[32.13px] h-[30.25px] mt-5" />
+                   <p className='bg-red-500 rounded-full h-5 w-5 text-white flex items-center justify-center relative  bottom-10 left-4'>
+                       {cartItems.length}
+                     </p>
+                 </Link>
+               </div>
+               <SignedIn>
+                   <UserButton />
+               </SignedIn>
+             </div>
           </div>
         </div>
       </header>
