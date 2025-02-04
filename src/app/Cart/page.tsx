@@ -439,7 +439,6 @@ const Cartpage: React.FC = () => {
   };
 
   const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  const discount = subtotal * 0.2; // 20% discount
   const deliveryFee = 15; // Fixed delivery fee
   const total = subtotal  + deliveryFee;
 
@@ -513,10 +512,7 @@ const Cartpage: React.FC = () => {
             <p>Subtotal</p>
             <p>${subtotal.toFixed(2)}</p>
           </div>
-          {/* <div className="flex justify-between text-gray-600">
-            <p>Discount (-20%)</p>
-            <p className="text-red-500 font-semibold">-${discount.toFixed(2)}</p>
-          </div> */}
+        
           <div className="flex justify-between text-gray-600">
             <p>Delivery Fee</p>
             <p>${deliveryFee.toFixed(2)}</p>
