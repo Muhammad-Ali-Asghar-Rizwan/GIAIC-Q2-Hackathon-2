@@ -6,11 +6,13 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/Store";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import toast from "react-hot-toast";
 import { client } from "../../sanity/lib/client";
 import Swal from "sweetalert2";
+import { Product } from "../type/product";
+import { getCartItems } from "../action/action";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -229,10 +231,10 @@ const handlePlaceOrder = async () => {
           <div className="border rounded-sm p-4 sm:p-6 space-y-4 w-full">
             <h2 className="text-lg sm:text-xl font-medium mb-4">Order Summary</h2>
             {cartItems.map((item, index) => (
-              <div key={item.id || index} className="flex items-center gap-4 py-3 border-b">
+              <div key={item._id || index} className="flex items-center gap-4 py-3 border-b">
                 <div className="w-16 h-16 overflow-hidden rounded">
                   <Image
-                    src={item.imageUrl}
+                    src={typeof item.image === 'string' ? item.image : '/default-image.jpg'}
                     alt={item.name}
                     width={64}
                     height={64}
@@ -242,8 +244,8 @@ const handlePlaceOrder = async () => {
                 <div className="flex-1 gap-44">
                   <h3 className="text-lg font-bold">{item.name}</h3>
                   
-                <h5 className="text-lg font-semibold text-gray-600"><span className="text-black">Size: </span>{item.size}</h5>
-                <p className="text-sm text-gray-600"><span className="text-black font-semibold">Color: </span>{item.color}</p>              
+                <h5 className="text-lg font-semibold text-gray-600"><span className="text-black">Size: </span>{item.sizes}</h5>
+                {/* <p className="text-sm text-gray-600"><span className="text-black font-semibold">Color: </span>{item.color}</p>               */}
                 <p className="text-sm text-gray-600"><span className="text-black font-semibold">Quantity: </span>{item.quantity}</p>              
                   </div>
                 <p className="text-lg text-slate-600 font-bold ">${item.price * item.quantity}</p>
