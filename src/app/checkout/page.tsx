@@ -26,8 +26,9 @@ export default function CheckoutPage() {
     email: "",
   });
 
-  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const subtotal = cartItems.reduce((total, item) => total + deliveryFee +  item.price * item.quantity, 0);
   const discount = subtotal * 0.2; // 20% discount
+  const deliveryFee = 15; // Fixed delivery fee
   const total = subtotal - discount;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,9 +95,6 @@ export default function CheckoutPage() {
         console.error("Failed to create order", error);
       }
   };
-
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 
 
