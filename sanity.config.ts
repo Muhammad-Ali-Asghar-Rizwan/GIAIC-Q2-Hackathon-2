@@ -33,30 +33,3 @@
 
 
 
-
-
-
-import { defineConfig } from 'sanity';
-import { deskTool } from 'sanity/desk';
-import { visionTool } from '@sanity/vision';
-// import  schemas  from './src/sanity/schemaTypes/schemas';
-import deskStructure from './src/sanity/schemaTypes/deskStructure';
-import product from './src/sanity/schemaTypes/product';
-export default defineConfig({
-  name: 'default',
-  title: 'Your Project Title',
-
-  projectId: 'p98zwfgl',
-  dataset: 'production',
-
-  plugins: [
-    deskTool({
-      structure: deskStructure,
-    }),
-    visionTool(),
-  ],
-
-  schema: {
-    types: [product],
-  },
-});
