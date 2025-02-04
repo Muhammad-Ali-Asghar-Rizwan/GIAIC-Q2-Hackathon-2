@@ -39,7 +39,7 @@
 import { defineConfig } from 'sanity';
 import { deskTool } from 'sanity/desk';
 import { visionTool } from '@sanity/vision';
-import schemas from './src/sanity/schemaTypes/schemas';
+import  schemas  from './src/sanity/schemaTypes/schemas';
 import deskStructure from './src/sanity/schemaTypes/deskStructure';
 export default defineConfig({
   name: 'default',
