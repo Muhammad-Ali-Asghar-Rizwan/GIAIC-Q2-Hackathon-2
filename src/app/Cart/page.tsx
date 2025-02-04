@@ -441,7 +441,7 @@ const Cartpage: React.FC = () => {
   const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   const discount = subtotal * 0.2; // 20% discount
   const deliveryFee = 15; // Fixed delivery fee
-  const total = subtotal - discount + deliveryFee;
+  const total = subtotal  + deliveryFee;
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
