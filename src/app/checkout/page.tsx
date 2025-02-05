@@ -384,15 +384,15 @@ export default function CheckoutPage() {
     email: "",
   });
 
-  const [formErrors, setFormErrors] = useState({
-    firstName: "",
-    lastName: "",
-    address: "",
-    city: "",
-    zipCode: "",
-    phone: "",
-    email: "",
-  });
+  // const [formErrors, setFormErrors] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   address: "",
+  //   city: "",
+  //   zipCode: "",
+  //   phone: "",
+  //   email: "",
+  // });
 
 
 
@@ -406,7 +406,7 @@ export default function CheckoutPage() {
   //   }));
   // };
 
-  const validateForm = () => {
+  const validateForm = (): any=> {
     const errors = {
       firstName: "",
       lastName: "",
@@ -417,82 +417,82 @@ export default function CheckoutPage() {
       email: "",
     };
 
-    let isValid = true;
+    // let isValid = true;
 
-    if (!formValues.firstName) {
-      errors.firstName = "First Name is required";
-      isValid = false;
-    } else if (!/^[a-zA-Z\s]+$/.test(formValues.firstName)) {
-      errors.firstName = "First Name must contain only letters";
-      isValid = false;
-    }
+  //   if (!formValues.firstName) {
+  //     errors.firstName = "First Name is required";
+  //     isValid = false;
+  //   } else if (!/^[a-zA-Z\s]+$/.test(formValues.firstName)) {
+  //     errors.firstName = "First Name must contain only letters";
+  //     isValid = false;
+  //   }
 
-    if (!formValues.lastName) {
-      errors.lastName = "Last Name is required";
-      isValid = false;
-    } else if (!/^[a-zA-Z\s]+$/.test(formValues.lastName)) {
-      errors.lastName = "Last Name must contain only letters";
-      isValid = false;
-    }
+  //   if (!formValues.lastName) {
+  //     errors.lastName = "Last Name is required";
+  //     isValid = false;
+  //   } else if (!/^[a-zA-Z\s]+$/.test(formValues.lastName)) {
+  //     errors.lastName = "Last Name must contain only letters";
+  //     isValid = false;
+  //   }
 
-    if (!formValues.address) {
-      errors.address = "Address is required";
-      isValid = false;
-    }
+  //   if (!formValues.address) {
+  //     errors.address = "Address is required";
+  //     isValid = false;
+  //   }
 
-    if (!formValues.city) {
-      errors.city = "City is required";
-      isValid = false;
-    }
+  //   if (!formValues.city) {
+  //     errors.city = "City is required";
+  //     isValid = false;
+  //   }
 
-    if (!formValues.zipCode) {
-      errors.zipCode = "Zip Code is required";
-      isValid = false;
-    } else if (!/^\d{5}(-\d{4})?$/.test(formValues.zipCode)) {
-      errors.zipCode = "Invalid Zip Code format";
-      isValid = false;
-    }
+  //   if (!formValues.zipCode) {
+  //     errors.zipCode = "Zip Code is required";
+  //     isValid = false;
+  //   } else if (!/^\d{5}(-\d{4})?$/.test(formValues.zipCode)) {
+  //     errors.zipCode = "Invalid Zip Code format";
+  //     isValid = false;
+  //   }
 
-    if (!formValues.phone) {
-      errors.phone = "Phone Number is required";
-      isValid = false;
-    } else if (!/^\d+$/.test(formValues.phone)) {
-      errors.phone = "Phone Number must contain only numbers";
-      isValid = false;
-    }
+  //   if (!formValues.phone) {
+  //     errors.phone = "Phone Number is required";
+  //     isValid = false;
+  //   } else if (!/^\d+$/.test(formValues.phone)) {
+  //     errors.phone = "Phone Number must contain only numbers";
+  //     isValid = false;
+  //   }
 
-    if (!formValues.email) {
-      errors.email = "Email is required";
-      isValid = false;
-    }
+  //   if (!formValues.email) {
+  //     errors.email = "Email is required";
+  //     isValid = false;
+  //   }
 
-    setFormErrors(errors);
-    return isValid;
+  //   setFormErrors(errors);
+  //   return isValid;
   };
 
-  const handleCheckout = async () => {
-    if (!validateForm()) {
-      toast.error("Please fill out all required fields.");
-      return;
-    }
+  // const handleCheckout = async () => {
+  //   if (!validateForm()) {
+  //     toast.error("Please fill out all required fields.");
+  //     return;
+  //   }
 
-    try {
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ allproducts: cartItems }),
-      });
-      const data = await response.json();
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (error) {
-      console.error("Error during checkout", error);
-      toast.error('Failed to create checkout session');
-    }
-  };
+  //   try {
+  //     const response = await fetch('/api/checkout', {
+  //       method: 'POST',
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({ allproducts: cartItems }),
+  //     });
+  //     const data = await response.json();
+  //     if (data.url) {
+  //       window.location.href = data.url;
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during checkout", error);
+  //     toast.error('Failed to create checkout session');
+  //   }
+  // };
 
 
 
