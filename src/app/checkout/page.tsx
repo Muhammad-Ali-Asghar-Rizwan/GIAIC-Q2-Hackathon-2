@@ -306,6 +306,74 @@ import Swal from "sweetalert2";
 
 export default function CheckoutPage() {
   const cartItems = useSelector((state: RootState) => state.cart);
+  // const [formValues, setFormValues] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   address: "",
+  //   city: "",
+  //   zipCode: "",
+  //   phone: "",
+  //   email: "",
+  // });
+
+  const deliveryFee = 15; // Fixed delivery fee
+
+  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const discount = subtotal * 0.2; // 20% discount
+  const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added properly
+
+  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormValues({
+  //     ...formValues,
+  //     [name]: value,
+  //   });
+  // };
+
+  // const handlePlaceOrder = async () => {
+  //   try {
+  //     const response = await fetch('/api/checkout', {
+  //       method: 'POST',
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({ allproducts: cartItems, formValues, total, discount }),
+  //     });
+  //     const data = await response.json();
+  //     if (data.url) {
+  //       window.location.href = data.url;
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during checkout", error);
+  //     toast.error('Failed to create checkout session');
+  //   }
+  //   Swal.fire({
+  //     title: 'Success!',
+  //     text: 'app ka order confirm ho chuka hai',
+  //     icon: 'success',
+  //     showCancelButton: true,
+  //     confirmButtonText: 'OK',
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       // router.push('/checkout');
+  //     }
+  //   });
+  // };
+
+  
+
+
+
+
+
+
+
+
+
+
+
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
@@ -316,28 +384,105 @@ export default function CheckoutPage() {
     email: "",
   });
 
-  const deliveryFee = 15; // Fixed delivery fee
+  const [formErrors, setFormErrors] = useState({
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    zipCode: "",
+    phone: "",
+    email: "",
+  });
 
-  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  const discount = subtotal * 0.2; // 20% discount
-  const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added properly
+
+
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+    const { id, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [id]: value,
+    }));
   };
 
-  const handlePlaceOrder = async () => {
+  const validateForm = () => {
+    const errors = {
+      firstName: "",
+      lastName: "",
+      address: "",
+      city: "",
+      zipCode: "",
+      phone: "",
+      email: "",
+    };
+
+    let isValid = true;
+
+    if (!formValues.firstName) {
+      errors.firstName = "First Name is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z\s]+$/.test(formValues.firstName)) {
+      errors.firstName = "First Name must contain only letters";
+      isValid = false;
+    }
+
+    if (!formValues.lastName) {
+      errors.lastName = "Last Name is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z\s]+$/.test(formValues.lastName)) {
+      errors.lastName = "Last Name must contain only letters";
+      isValid = false;
+    }
+
+    if (!formValues.address) {
+      errors.address = "Address is required";
+      isValid = false;
+    }
+
+    if (!formValues.city) {
+      errors.city = "City is required";
+      isValid = false;
+    }
+
+    if (!formValues.zipCode) {
+      errors.zipCode = "Zip Code is required";
+      isValid = false;
+    } else if (!/^\d{5}(-\d{4})?$/.test(formValues.zipCode)) {
+      errors.zipCode = "Invalid Zip Code format";
+      isValid = false;
+    }
+
+    if (!formValues.phone) {
+      errors.phone = "Phone Number is required";
+      isValid = false;
+    } else if (!/^\d+$/.test(formValues.phone)) {
+      errors.phone = "Phone Number must contain only numbers";
+      isValid = false;
+    }
+
+    if (!formValues.email) {
+      errors.email = "Email is required";
+      isValid = false;
+    }
+
+    setFormErrors(errors);
+    return isValid;
+  };
+
+  const handleCheckout = async () => {
+    if (!validateForm()) {
+      toast.error("Please fill out all required fields.");
+      return;
+    }
+
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ allproducts: cartItems, formValues, total, discount }),
+        body: JSON.stringify({ allproducts: cartItems }),
       });
       const data = await response.json();
       if (data.url) {
@@ -347,20 +492,97 @@ export default function CheckoutPage() {
       console.error("Error during checkout", error);
       toast.error('Failed to create checkout session');
     }
-    Swal.fire({
-      title: 'Success!',
-      text: 'app ka order confirm ho chuka hai',
-      icon: 'success',
-      showCancelButton: true,
-      confirmButtonText: 'OK',
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // router.push('/checkout');
-      }
-    });
   };
+
+
+
+
+
+
+
+// *************************** HANDLE PLACE ORDER ***************************
+
+const handlePlaceOrder = async () => {
+  Swal.fire({
+    // ... Swal options
+     // ... Swal options
+     title:"Processing Your Order",
+     text:"Please Wait a moment",
+     icon:"info",
+     showCancelButton: true,
+     confirmButtonColor: "#3085d6",
+     cancelButtonColor:"#d33",
+     confirmButtonText:"Proceed",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      if (validateForm()) {
+        const orderData = {
+          // ... same orderData as before
+          _type: "order",
+                    firstName: formValues.firstName,
+                    lastName: formValues.lastName,
+                    address: formValues.address,
+                    email: formValues.email,
+                    phone: formValues.phone, // Convert to number
+                    zipcode: formValues.zipCode, // Convert to number
+                    city: formValues.city,
+                    total:total,
+                    discount:discount,
+                    cartItems: cartItems.map((item) => ({
+                      _key: item._id, // Add unique key for array items
+                      _type: "reference",
+                      _ref: item.id // Reference the Sanity document ID
+                    }))
+                  };
+
+        try {
+          // const response = await fetch('/api/createorder/', {
+          //   method: 'POST',
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //   },
+          //   body: JSON.stringify(orderData),
+          // });
+
+
+          const response = await fetch('/api/createorder', { 
+    method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData),
+          });
+
+          
+          if (response.ok) {
+            localStorage.removeItem("appliedDiscount");
+            // Handle success
+            Swal.fire(
+              "Success!",
+              "Your order has been placed!",
+              "success"
+            );
+
+          } else {
+            throw new Error('Failed to create order');
+          }
+        } catch (error) {
+          // Handle error
+          Swal.fire(
+            "Error!",
+            "Please fill all fields correctly.",
+            "error"
+          );
+        }
+      }
+    }
+  });
+};
+
+
+
+
+
 
   return (
     <div className="min-h-screen bg-white">
