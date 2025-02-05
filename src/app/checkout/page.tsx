@@ -254,12 +254,10 @@
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import toast from "react-hot-toast";
-// import { RootState } from "@/app/(AddToCartFunctunality)/redux/store";
 import { useState } from "react";
 import Link from "next/link";
 
 import Swal from "sweetalert2";
-// import router from "next/router";
 import { RootState } from "../redux/Store";
 import { createClient } from "next-sanity";
 
@@ -269,8 +267,7 @@ import { createClient } from "next-sanity";
 // const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 console.log("Sanity Token:", process.env.SANITY_API_TOKEN);
 
-// import { createClient } from '@sanity/client';
-// import Cartpage from "../(AddToCartFunctunality)/cart/page";
+
 
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -449,46 +446,52 @@ const handlePlaceOrder = async () => {
                       _ref: item.id // Reference the Sanity document ID
                     }))
                   };
+                  try {
+                            await client.create(orderData);
+                            localStorage.removeItem('appiedDiscount');
+                          } catch (error) {
+                            console.error("Failed to create order", error);
+                          }
 
-        try {
-          // const response = await fetch('/api/createorder/', {
-          //   method: 'POST',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify(orderData),
-          // });
+    //     try {
+    //       // const response = await fetch('/api/createorder/', {
+    //       //   method: 'POST',
+    //       //   headers: {
+    //       //     'Content-Type': 'application/json',
+    //       //   },
+    //       //   body: JSON.stringify(orderData),
+    //       // });
 
 
-          const response = await fetch('/api/createorder', { 
-    method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(orderData),
-          });
+    //       const response = await fetch('/api/createorder', { 
+    // method: 'POST',
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(orderData),
+    //       });
 
           
-          if (response.ok) {
-            localStorage.removeItem("appliedDiscount");
-            // Handle success
-            Swal.fire(
-              "Success!",
-              "Your order has been placed!",
-              "success"
-            );
+    //       if (response.ok) {
+    //         localStorage.removeItem("appliedDiscount");
+    //         // Handle success
+    //         Swal.fire(
+    //           "Success!",
+    //           "Your order has been placed!",
+    //           "success"
+    //         );
 
-          } else {
-            throw new Error('Failed to create order');
-          }
-        } catch (error) {
-          // Handle error
-          Swal.fire(
-            "Error!",
-            "Please fill all fields correctly.",
-            "error"
-          );
-        }
+    //       } else {
+    //         throw new Error('Failed to create order');
+    //       }
+    //     } catch (error) {
+    //       // Handle error
+    //       Swal.fire(
+    //         "Error!",
+    //         "Please fill all fields correctly.",
+    //         "error"
+    //       );
+    //     }
       }
     }
   });
