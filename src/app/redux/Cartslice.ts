@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface CartItem {
+  _id: any;
+  discountPercent: any;
   color: string | undefined;
   name: string;
   id: number;
