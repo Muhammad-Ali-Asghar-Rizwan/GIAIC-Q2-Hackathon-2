@@ -120,12 +120,6 @@
 
 
 
-
-
-
-
-
-
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { client } from '../../../sanity/lib/client';
@@ -207,7 +201,8 @@ export const POST = async (request: Request) => {
 
     console.log('Order data to be saved:', orderData);
 
-    await client.create(orderData);
+    const result = await client.create(orderData);
+    console.log('Sanity response:', result);
 
     return NextResponse.json({ url: session.url });
   } catch (error) {
