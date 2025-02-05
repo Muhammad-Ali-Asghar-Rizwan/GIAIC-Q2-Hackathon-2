@@ -150,6 +150,7 @@ import Image from "next/image";
 import { sanityFetch } from "../../sanity/lib/fetch";
 import { allproducts } from "../../sanity/lib/queries";
 import NavbarTop from "./NavbarTop";
+import { RootState } from "../../app/redux/Store";
 
 // Define Product type
 interface Product {
@@ -160,10 +161,10 @@ interface Product {
   tags: string[];
 }
 
-// Redux state type
-interface RootState {
-  cart: { items: { quantity: number }[] };
-}
+// // Redux state type
+// interface RootState {
+//   cart: { items: { quantity: number }[] };
+// }
 
 function Navbar() {
   // Ensure cartItems has a default empty array
@@ -270,7 +271,7 @@ function Navbar() {
                    <Link href="/Cart">
                    <MdOutlineShoppingCart className="w-[32.13px] h-[30.25px] mt-5" />
                    <p className='bg-red-500 rounded-full h-5 w-5 text-white flex items-center justify-center relative  bottom-10 left-4'>
-                   {item.items.length}
+                   {item.length}
                      </p>
                  </Link>
                </div>
