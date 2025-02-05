@@ -168,7 +168,7 @@ interface RootState {
 function Navbar() {
   // Ensure cartItems has a default empty array
   const cartItems = useSelector((state: RootState) => state.cart.items) || [];
-    // const item = useSelector((state: RootState) => state.cart);
+    const item = useSelector((state: RootState) => state.cart);
 
 
   const totalQuantity = cartItems.reduce((acc, item) => acc + (item.quantity || 0), 0);
@@ -264,29 +264,13 @@ function Navbar() {
               placeholder="Search for products..."
               className="hidden md:block w-72 lg:w-96 h-10 rounded-full pl-10 pr-4 bg-gray-100 border border-gray-300 focus:ring-gray-400"
             />
-            {/* <div className="flex items-center gap-4 ml-4">
-              <Link href="/cart" className="relative">
-                <MdOutlineShoppingCart className="w-8 h-10" />
-                {totalQuantity > 0 && (
-                  <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full flex items-center justify-center"
-                    style={{
-                      width: totalQuantity > 99 ? "1.2rem" : "1rem",
-                      height: totalQuantity > 99 ? "1.2rem" : "1rem",
-                      fontSize: totalQuantity > 99 ? "0.75rem" : "0.5rem",
-                    }}>
-                    {totalQuantity}
-                  </span>
-                )}
-              </Link>
-              <CiHeart className="w-6 h-6" />
-              <SignedIn><UserButton /></SignedIn>
-            </div> */}
+          
               <div className="flex gap-1 ml-4 items-center justify-center">
                  <div className='flex items-center justify-center'>
                    <Link href="/Cart">
                    <MdOutlineShoppingCart className="w-[32.13px] h-[30.25px] mt-5" />
                    <p className='bg-red-500 rounded-full h-5 w-5 text-white flex items-center justify-center relative  bottom-10 left-4'>
-                       {totalQuantity.toString()}
+                   {cartItems.length > 0 && totalQuantity}
                      </p>
                  </Link>
                </div>

@@ -12,8 +12,6 @@ import toast from "react-hot-toast";
 import { client } from "../../sanity/lib/client";
 import Swal from "sweetalert2";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-
 export default function CheckoutPage() {
   const cartItems = useSelector((state: RootState) => state.cart);
   const [formValues, setFormValues] = useState({
