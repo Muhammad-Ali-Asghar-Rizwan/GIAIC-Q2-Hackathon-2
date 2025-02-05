@@ -1,232 +1,344 @@
-// "use client";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../redux/Store";
-// import Image from "next/image";
-// import { useState } from "react";
-// import toast from "react-hot-toast";
-// import { client } from "../../sanity/lib/client";
-// import Swal from "sweetalert2";
+"use client";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/Store";
+import Image from "next/image";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { client } from "../../sanity/lib/client";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
+import order from "../../sanity/schemaTypes/order";
+// import router from "next/router";
 
-// export default function CheckoutPage() {
-//   const cartItems = useSelector((state: RootState) => state.cart);
-//   const [formValues, setFormValues] = useState({
-//     firstName: "",
-//     lastName: "",
-//     address: "",
-//     city: "",
-//     zipCode: "",
-//     phone: "",
-//     email: "",
-//   });
+export default async function CheckoutPage() {
+  const router = useRouter();
+  const cartItems = useSelector((state: RootState) => state.cart);
+  const [formValues, setFormValues] = useState({
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    zipCode: "",
+    phone: "",
+    email: "",
+  });
 
-//   const deliveryFee = 15; // Fixed delivery fee
+  const deliveryFee = 15; // Fixed delivery fee
 
-//   const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-//   const discount = subtotal * 0.2; // 20% discount
-//   const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added properly
+  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const discount = subtotal * 0.2; // 20% discount
+  const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added properly
   
 
-//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const { name, value } = e.target;
-//     setFormValues({
-//       ...formValues,
-//       [name]: value,
-//     });
-//   };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
 
-//   const handlePlaceOrder = async () => {
-//     try {
-//       const response = await fetch('/api/checkout', {
-//         method: 'POST',
-//         headers: {
-//           "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({ allproducts: cartItems }),
-//       });
-//       const data = await response.json();
-//       if (data.url) {
-//         window.location.href = data.url;
-//       }
-//     } catch (error) {
-//       console.error("Error during checkout", error);
-//       toast.error('Failed to create checkout session');
-//     }
-//     Swal.fire({
-//           title: 'Success!',
-//           text: 'app ka order confirm ho chuka hai',
-//           icon: 'success',
-//           showCancelButton: true,
-//           confirmButtonText: 'OK',
-//           confirmButtonColor: '#3085d6',
-//           cancelButtonColor: '#d33',
-//         }).then((result) => {
-//           if (result.isConfirmed) {
-//             // router.push('/checkout');
-//           }
-//         });
+  // const handlePlaceOrder = async () => {
+  //   try {
+  //     const response = await fetch('/api/checkout', {
+  //       method: 'POST',
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({ allproducts: cartItems }),
+  //     });
+  //     const data = await response.json();
+  //     if (data.url) {
+  //       window.location.href = data.url;
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during checkout", error);
+  //     toast.error('Failed to create checkout session');
+  //   }
+  //   Swal.fire({
+  //         title: 'Success!',
+  //         text: 'app ka order confirm ho chuka hai',
+  //         icon: 'success',
+  //         showCancelButton: true,
+  //         confirmButtonText: 'OK',
+  //         confirmButtonColor: '#3085d6',
+  //         cancelButtonColor: '#d33',
+  //       }).then((result) => {
+  //         if (result.isConfirmed) {
+  //           router.push('/checkout');
+  //         }
+  //       });
 
-//     const orderData = {
-//       _type: 'order',
-//       firstName: formValues.firstName,
-//       lastName: formValues.lastName,
-//       address: formValues.address,
-//       city: formValues.city,
-//       zipCode: formValues.zipCode,
-//       phone: formValues.phone,
-//       email: formValues.email,
-//       cartItems: cartItems.map(item => ({
-//         _type: 'reference',
-//         _ref: item._id,  // Assuming cartItems have the correct product references
-//       })),
-//       total: total,  // Make sure this value is being calculated
-//       discount: discount,  // Add any discount if applicable
-//       orderDate: new Date().toISOString(),  // Order date for when the order was placed
-//     };
+  //   // const orderData = {
+  //   //   _type: 'order',
+  //   //   firstName: formValues.firstName,
+  //   //   lastName: formValues.lastName,
+  //   //   address: formValues.address,
+  //   //   city: formValues.city,
+  //   //   zipCode: formValues.zipCode,
+  //   //   phone: formValues.phone,
+  //   //   email: formValues.email,
+  //   //   cartItems: cartItems.map(item => ({
+  //   //     _type: 'reference',
+  //   //     _ref: item._id,  // Assuming cartItems have the correct product references
+  //   //   })),
+  //   //   total: total,  // Make sure this value is being calculated
+  //   //   discount: discount,  // Add any discount if applicable
+  //   //   orderDate: new Date().toISOString(),  // Order date for when the order was placed
+  //   // };
+
+  //   const orderData = {
+  //     // ... same orderData as before
+  //     _type: "order",
+  //               firstName: formValues.firstName,
+  //               lastName: formValues.lastName,
+  //               address: formValues.address,
+  //               email: formValues.email,
+  //               phone: formValues.phone, // Convert to number
+  //               zipcode: formValues.zipCode, // Convert to number
+  //               city: formValues.city,
+  //               total:total,
+  //               discount:discount,
+  //               cartItems: cartItems.map((item) => ({
+  //                 _key: item._id, // Add unique key for array items
+  //                 _type: "reference",
+  //                 _ref: item.id // Reference the Sanity document ID
+  //               }))
+  //             };
+
    
-//      try {
-//         await client.create(orderData);
-//         localStorage.removeItem('appiedDiscount');
-//       } catch (error) {
-//         console.error("Failed to create order", error);
-//       }
-//   };
+  //    try {
+  //       await client.create(orderData);
+  //       localStorage.removeItem('appiedDiscount');
+  //     } catch (error) {
+  //       console.error("Failed to create order", error);
+  //     }
+  // };
 
 
 
 
 
-
-
-//   return (
-//     <div className="min-h-screen bg-white">
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 lg:py-20">
-//         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-//           {/* Order Summary */}
-//           <div className="border rounded-sm p-4 sm:p-6 space-y-4 w-full">
-//             <h2 className="text-lg sm:text-xl font-medium mb-4">Order Summary</h2>
-//             {cartItems.map((item, index) => (
-//               <div key={item.id || index} className="flex items-center gap-4 py-3 border-b">
-//                 <div className="w-16 h-16 overflow-hidden rounded">
-//                   <Image
-//                     src={item.imageUrl}
-//                     alt={item.name}
-//                     width={64}
-//                     height={64}
-//                     className="object-cover w-full h-full"
-//                   />
-//                 </div>
-//                 <div className="flex-1 gap-44">
-//                   <h3 className="text-lg font-bold">{item.name}</h3>
+  const validateForm = () => {
+    const errors = {
+      firstName: "",
+      lastName: "",
+      address: "",
+      city: "",
+      zipCode: "",
+      phone: "",
+      email: "",
+    };
+    return true; // Add this line to return a boolean value
+  }
+  const handlePlaceOrder = async () => {
+    Swal.fire({
+      // ... Swal options
+       // ... Swal options
+       title:"Processing Your Order",
+       text:"Please Wait a moment",
+       icon:"info",
+       showCancelButton: true,
+       confirmButtonColor: "#3085d6",
+       cancelButtonColor:"#d33",
+       confirmButtonText:"Proceed",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        if (validateForm()) {
+          const orderData = {
+            // ... same orderData as before
+            _type: "order",
+                      firstName: formValues.firstName,
+                      lastName: formValues.lastName,
+                      address: formValues.address,
+                      email: formValues.email,
+                      phone: formValues.phone, // Convert to number
+                      zipcode: formValues.zipCode, // Convert to number
+                      city: formValues.city,
+                      total:total,
+                      discount:discount,
+                      cartItems: cartItems.map((item) => ({
+                        _key: item._id, // Add unique key for array items
+                        _type: "reference",
+                        _ref: item.id // Reference the Sanity document ID
+                      }))
+                    };
+  
+          try {
+            // const response = await fetch('/api/createorder/', {
+            //   method: 'POST',
+            //   headers: {
+            //     'Content-Type': 'application/json',
+            //   },
+            //   body: JSON.stringify(orderData),
+            // });
+  
+  
+            const response = await fetch('/api/createorder', { 
+      method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(orderData),
+            });
+  
+            
+            if (response.ok) {
+              localStorage.removeItem("appliedDiscount");
+              // Handle success
+              Swal.fire(
+                "Success!",
+                "Your order has been placed!",
+                "success"
+              );
+  
+            } else {
+              throw new Error('Failed to create order');
+            }
+          } catch (error) {
+            // Handle error
+            Swal.fire(
+              "Error!",
+              "Please fill all fields correctly.",
+              "error"
+            );
+          }
+        }
+      }
+    });
+  };
+  
+  
+  return (
+    <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Order Summary */}
+          <div className="border rounded-sm p-4 sm:p-6 space-y-4 w-full">
+            <h2 className="text-lg sm:text-xl font-medium mb-4">Order Summary</h2>
+            {cartItems.map((item, index) => (
+              <div key={item.id || index} className="flex items-center gap-4 py-3 border-b">
+                <div className="w-16 h-16 overflow-hidden rounded">
+                  <Image
+                    src={item.imageUrl}
+                    alt={item.name}
+                    width={64}
+                    height={64}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+                <div className="flex-1 gap-44">
+                  <h3 className="text-lg font-bold">{item.name}</h3>
                   
-//                 <h5 className="text-lg font-semibold text-gray-600"><span className="text-black">Size: </span>{item.size}</h5>
-//                 <p className="text-sm text-gray-600"><span className="text-black font-semibold">Color: </span>{item.color}</p>              
-//                 <p className="text-sm text-gray-600"><span className="text-black font-semibold">Quantity: </span>{item.quantity}</p>              
-//                   </div>
-//                 <p className="text-lg text-slate-600 font-bold ">${item.price * item.quantity}</p>
-//               </div>
-//             ))}
-//           </div>
+                <h5 className="text-lg font-semibold text-gray-600"><span className="text-black">Size: </span>{item.size}</h5>
+                <p className="text-sm text-gray-600"><span className="text-black font-semibold">Color: </span>{item.color}</p>              
+                <p className="text-sm text-gray-600"><span className="text-black font-semibold">Quantity: </span>{item.quantity}</p>              
+                  </div>
+                <p className="text-lg text-slate-600 font-bold ">${item.price * item.quantity}</p>
+              </div>
+            ))}
+          </div>
 
-//           {/* Billing Form */}
-//           <div className="border rounded-sm p-4 sm:p-6 space-y-4 w-full">
-//             <h2 className="text-xl sm:text-2xl font-medium mb-6">Billing Information</h2>
-//             <div className="space-y-4">
-//               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-//                 <input
-//                   type="text"
-//                   name="firstName"
-//                   placeholder="First Name"
-//                   value={formValues.firstName}
-//                   onChange={handleInputChange}
-//                   className="p-2 border rounded-sm"
-//                   required
-//                 />
-//                 <input
-//                   type="text"
-//                   name="lastName"
-//                   placeholder="Last Name"
-//                   value={formValues.lastName}
-//                   onChange={handleInputChange}
-//                   className="p-2 border rounded-sm"
-//                   required
-//                 />
-//               </div>
-//               <input
-//                 type="text"
-//                 name="address"
-//                 placeholder="Address"
-//                 value={formValues.address}
-//                 onChange={handleInputChange}
-//                 className="p-2 border rounded-sm w-full"
-//                 required
-//               />
-//               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-//                 <input
-//                   type="text"
-//                   name="city"
-//                   placeholder="City"
-//                   value={formValues.city}
-//                   onChange={handleInputChange}
-//                   className="p-2 border rounded-sm"
-//                   required
-//                 />
-//                 <input
-//                   type="text"
-//                   name="zipCode"
-//                   placeholder="Zip Code"
-//                   value={formValues.zipCode}
-//                   onChange={handleInputChange}
-//                   className="p-2 border rounded-sm"
-//                   required
-//                 />
-//               </div>
-//               <input
-//                 type="tel"
-//                 name="phone"
-//                 placeholder="Phone Number"
-//                 value={formValues.phone}
-//                 onChange={handleInputChange}
-//                 className="p-2 border rounded-sm w-full"
-//                 required
-//               />
-//               <input
-//                 type="email"
-//                 name="email"
-//                 placeholder="Email"
-//                 value={formValues.email}
-//                 onChange={handleInputChange}
-//                 className="p-2 border rounded-sm w-full"
-//                 required
-//               />
-//             </div>
+          {/* Billing Form */}
+          <div className="border rounded-sm p-4 sm:p-6 space-y-4 w-full">
+            <h2 className="text-xl sm:text-2xl font-medium mb-6">Billing Information</h2>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  value={formValues.firstName}
+                  onChange={handleInputChange}
+                  className="p-2 border rounded-sm"
+                  required
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={formValues.lastName}
+                  onChange={handleInputChange}
+                  className="p-2 border rounded-sm"
+                  required
+                />
+              </div>
+              <input
+                type="text"
+                name="address"
+                placeholder="Address"
+                value={formValues.address}
+                onChange={handleInputChange}
+                className="p-2 border rounded-sm w-full"
+                required
+              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  value={formValues.city}
+                  onChange={handleInputChange}
+                  className="p-2 border rounded-sm"
+                  required
+                />
+                <input
+                  type="text"
+                  name="zipCode"
+                  placeholder="Zip Code"
+                  value={formValues.zipCode}
+                  onChange={handleInputChange}
+                  className="p-2 border rounded-sm"
+                  required
+                />
+              </div>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                value={formValues.phone}
+                onChange={handleInputChange}
+                className="p-2 border rounded-sm w-full"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formValues.email}
+                onChange={handleInputChange}
+                className="p-2 border rounded-sm w-full"
+                required
+              />
+            </div>
 
-//             <div className="flex flex-col gap-6 justify-between py-3 text-sm sm:text-base">
-//               <div className="flex justify-between py-3 border-b text-sm sm:text-base">
-//                 <span>Subtotal:</span>
-//                 <span>${subtotal.toFixed(2)}</span>
-//               </div>
-//               <div className="flex justify-between py-3 border-b text-sm sm:text-base">
-//                 <span className="font-bold">Discount:</span>
-//                 <span className="text-red-600">-${discount.toFixed(2)}</span>
-//               </div>
-//               <div className="flex justify-between py-3 border-b text-sm sm:text-base">
-//                 <span>Total:</span>
-//                 <span>${total.toFixed(2)}</span>
-//               </div>
-//             </div>
+            <div className="flex flex-col gap-6 justify-between py-3 text-sm sm:text-base">
+              <div className="flex justify-between py-3 border-b text-sm sm:text-base">
+                <span>Subtotal:</span>
+                <span>${subtotal.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between py-3 border-b text-sm sm:text-base">
+                <span className="font-bold">Discount:</span>
+                <span className="text-red-600">-${discount.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between py-3 border-b text-sm sm:text-base">
+                <span>Total:</span>
+                <span>${total.toFixed(2)}</span>
+              </div>
+            </div>
 
-//             <button
-//               onClick={handlePlaceOrder}
-//               className="w-full h-10 sm:h-12 bg-blue-500 hover:bg-blue-800 text-white font-bold rounded-sm mt-4 text-lg sm:text-base"
-//             >
-//               Place Order
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
+            <button
+              onClick={handlePlaceOrder}
+              className="w-full h-10 sm:h-12 bg-blue-500 hover:bg-blue-800 text-white font-bold rounded-sm mt-4 text-lg sm:text-base"
+            >
+              Place Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 
 
@@ -947,151 +1059,3 @@
 
 
 
-
-
-"use client";
-import { useSelector } from "react-redux";
-import Image from "next/image";
-import toast from "react-hot-toast";
-import { useState } from "react";
-import Link from "next/link";
-import Swal from "sweetalert2";
-import { createClient } from "next-sanity";
-import { RootState } from "../redux/Store";
-
-export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  useCdn: false,
-  apiVersion: "2023-01-01",
-  token: process.env.SANITY_API_TOKEN,
-});
-
-export default function Checkout() {
-  const cartItems = useSelector((state: RootState) => state.cart.items);
-  const [formValues, setFormValues] = useState({
-    firstName: "",
-    lastName: "",
-    address: "",
-    city: "",
-    zipCode: "",
-    phone: "",
-    email: "",
-  });
-
-  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  const discount = cartItems.reduce(
-    (total, item) =>
-      total +
-      (item.discountPercent ? item.price * item.quantity * (item.discountPercent / 100) : 0),
-    0
-  );
-  const deliveryFee = 15;
-  const total = subtotal - discount + deliveryFee;
-
-  const handlePlaceOrder = async () => {
-    const orderData = {
-                // ... same orderData as before
-                _type: "order",
-                          firstName: formValues.firstName,
-                          lastName: formValues.lastName,
-                          address: formValues.address,
-                          email: formValues.email,
-                          phone: formValues.phone, // Convert to number
-                          zipcode: formValues.zipCode, // Convert to number
-                          city: formValues.city,
-                          total:total,
-                          discount:discount,
-                          cartItems: cartItems.map((item) => ({
-                            _key: item._id, // Add unique key for array items
-                            _type: "reference",
-                            _ref: item.id // Reference the Sanity document ID
-                          }))
-                        };
-      
-              try {
-                const response = await fetch('/api/createorder/', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(orderData),
-                });
-                if (response.ok) {
-                  Swal.fire("Success!", "Your order has been placed!", "success");
-                } else {
-                  throw new Error("Failed to create order");
-                }
-              } catch (error) {
-                Swal.fire("Error!", "Please fill all fields correctly.", "error");
-              }
-      
-    Swal.fire({
-      title: "Processing Your Order",
-      text: "Please Wait a moment",
-      icon: "info",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Proceed",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const response = await fetch("/api/createorder", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ total, cartItems }),
-          });
-
-          if (response.ok) {
-            Swal.fire("Success!", "Your order has been placed!", "success");
-          } else {
-            throw new Error("Failed to create order");
-          }
-        } catch (error) {
-          Swal.fire("Error!", "Please fill all fields correctly.", "error");
-        }
-      }
-    });
-  };
-
-  return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex gap-4 text-sm text-gray-500 mb-4">
-          <Link href="/cart">Cart</Link> / <span>Checkout</span>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="border p-4">
-            <h2 className="text-xl font-bold mb-4">Order Summary</h2>
-            {cartItems.map((item, index) => (
-              <div key={index} className="flex items-center gap-4 py-3 border-b">
-                <Image src={item.imageUrl} alt={item.name} width={64} height={64} />
-                <div>
-                  <h3 className="text-sm font-medium">{item.name}</h3>
-                  <p className="text-xs text-gray-500">Quantity: {item.quantity}</p>
-                </div>
-                <p className="text-sm">${item.price * item.quantity}</p>
-              </div>
-            ))}
-            <div className="text-right">
-              <p>Subtotal: ${subtotal.toFixed(2)}</p>
-              <p>Discount: -${discount.toFixed(2)}</p>
-              <p>Delivery Fee: ${deliveryFee}</p>
-              <p className="font-bold text-xl">Total: ${total.toFixed(2)}</p>
-            </div>
-          </div>
-          <div className="border p-6">
-            <h2 className="text-2xl font-semibold mb-6 text-center">Billing Information</h2>
-            <button
-              onClick={handlePlaceOrder}
-              className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-            >
-              Place Order
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
