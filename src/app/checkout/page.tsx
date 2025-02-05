@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/Store";
 import Image from "next/image";
 import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import toast from "react-hot-toast";
 import { client } from "../../sanity/lib/client";
 import Swal from "sweetalert2";
