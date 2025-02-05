@@ -128,10 +128,11 @@
 
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { client } from '../../../../sanity/lib/client';
+import { client } from '../../../sanity/lib/client';
+// import { client } from '../../../../sanity/lib/client';
 
 const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY!, {
-  apiVersion: '2022-11-15',
+  apiVersion: '2025-01-27.acacia',
 });
 
 export const POST = async (request: Request) => {
