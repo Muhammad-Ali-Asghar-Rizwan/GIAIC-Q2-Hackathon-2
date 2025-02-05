@@ -322,13 +322,13 @@ export default function CheckoutPage() {
   const discount = subtotal * 0.2; // 20% discount
   const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added properly
 
-  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setFormValues({
-  //     ...formValues,
-  //     [name]: value,
-  //   });
-  // };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
 
   // const handlePlaceOrder = async () => {
   //   try {
@@ -398,13 +398,13 @@ export default function CheckoutPage() {
 
 
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [id]: value,
-    }));
-  };
+  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { id, value } = e.target;
+  //   setFormValues((prevValues) => ({
+  //     ...prevValues,
+  //     [id]: value,
+  //   }));
+  // };
 
   const validateForm = () => {
     const errors = {
