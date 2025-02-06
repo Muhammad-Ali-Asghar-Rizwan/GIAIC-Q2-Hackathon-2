@@ -275,9 +275,7 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
               _type: "reference",
               _ref: items._id,
             })),
-          };+
-          console.log(orderData);
-          
+          };
   
           try {
             const response = await fetch('/api/createorder', {

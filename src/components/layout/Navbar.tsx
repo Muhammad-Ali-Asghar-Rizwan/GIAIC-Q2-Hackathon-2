@@ -19,12 +19,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
-import { SignedIn, UserButton } from "@clerk/clerk-react";
+import { SignedIn, SignInButton, UserButton } from "@clerk/clerk-react";
 import Image from "next/image";
 import { sanityFetch } from "../../sanity/lib/fetch";
 import { allproducts } from "../../sanity/lib/queries";
 import NavbarTop from "./NavbarTop";
 import { RootState } from "../../app/redux/Store";
+import { SignedOut } from "@clerk/nextjs";
 
 // Define Product type
 interface Product {
@@ -35,18 +36,11 @@ interface Product {
   tags: string[];
 }
 
-// // Redux state type
-// interface RootState {
-//   cart: { items: { quantity: number }[] };
-// }
 
 function Navbar() {
-  // Ensure cartItems has a default empty array
-  // const cartItems = useSelector((state: RootState) => state.cart.items) || [];
+
     const item = useSelector((state: RootState) => state.cart);
 
-
-  // const totalQuantity = cartItems.reduce((acc, item) => acc + (item.quantity || 0), 0);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
@@ -92,15 +86,18 @@ function Navbar() {
               <SheetTrigger>
                 <LucideMenu className="mt-2" />
               </SheetTrigger>
-              <SheetContent>
+              <SheetContent side={"right"}>
                 <SheetHeader>
                   <SheetTitle>MENU</SheetTitle>
                 </SheetHeader>
                 <ul className="flex flex-col gap-10 mt-14">
                   <li><Link href="/" className="hover:underline">Shop</Link></li>
-                  <li><Link href="/" className="hover:underline">Contact</Link></li>
-                  <li><Link href="/Homepage3" className="hover:underline">New Arrival</Link></li>
+                  <li><Link href="/Selling" className="hover:underline">On Sale</Link></li>
+                  <li><Link href="/Arrival" className="hover:underline">New Arrival</Link></li>
                   <li><Link href="/category" className="hover:underline">Brands</Link></li>
+                  <SignedOut>
+              <SignInButton />
+            </SignedOut>
                 </ul>
               </SheetContent>
             </Sheet>
@@ -123,9 +120,12 @@ function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </Link>
-            <Link href="/Homepage4" className="hover:underline">On Sale</Link>
-            <Link href="/Homepage3" className="hover:underline">New Arrival</Link>
+            <Link href="/Selling" className="hover:underline">On Sale</Link>
+            <Link href="/Arrival" className="hover:underline">New Arrival</Link>
             <Link href="/category" className="hover:underline">Brands</Link>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
           </nav>
 
 
