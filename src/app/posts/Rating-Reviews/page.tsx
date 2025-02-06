@@ -292,9 +292,7 @@ export default function Review() {
           </h1>
 
           <div className="flex gap-4 mt-4 sm:mt-0 ">
-            <button className="w-[48px] h-[48px] rounded-[62px] bg-[#F0F0F0] flex justify-center items-center hover:bg-[#250b0b1f]">
-              <Image src="/image36.png" alt="image" width={30} height={30} />
-            </button>
+
             <button className="w-[120px] h-[48px] rounded-[62px] bg-[#F0F0F0] hover:bg-[#250b0b1f]">
               Latest
             </button>
