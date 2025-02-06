@@ -6,6 +6,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { client } from "../../sanity/lib/client";
 import Swal from "sweetalert2";
+import { isObjectItemProps } from "sanity";
 
 export default function CheckoutPage() {
   const cartItems = useSelector((state: RootState) => state.cart);
@@ -269,10 +270,10 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
             city: formValues.city,
             total: total,
             discount: discount,
-            cartItems: cartItems.map((item) => ({
-              _key: item._id,
+            cartItems: cartItems.map((items) => ({
+              _key: items._id,
               _type: "reference",
-              _ref: item._id,
+              _ref: items._id,
             })),
           };
   
