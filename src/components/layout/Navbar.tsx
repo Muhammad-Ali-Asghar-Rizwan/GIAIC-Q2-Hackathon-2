@@ -86,7 +86,7 @@ function Navbar() {
               <SheetTrigger>
                 <LucideMenu className="mt-2" />
               </SheetTrigger>
-              <SheetContent side={"right"}>
+              <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle>MENU</SheetTitle>
                 </SheetHeader>
@@ -131,7 +131,7 @@ function Navbar() {
 
           {/* Search and Cart */}
           <div className="flex items-center relative">
-            <IoSearchOutline className="w-6 h-6 text-gray-600 absolute left-3" />
+            <IoSearchOutline className="hidden md:block w-6 h-6 text-gray-600 absolute left-3" />
             <input
               type="text"
               value={searchQuery}
