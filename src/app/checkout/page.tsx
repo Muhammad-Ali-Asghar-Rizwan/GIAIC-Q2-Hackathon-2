@@ -33,7 +33,185 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
     });
   };
 
-  const handlePlaceOrder = async () => {
+  // const handlePlaceOrder = async () => {
+  //   try {
+  //     const response = await fetch('/api/checkout', {
+  //       method: 'POST',
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({ allproducts: cartItems }),
+  //     });
+  //     const data = await response.json();
+  //     if (data.url) {
+  //       window.location.href = data.url;
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during checkout", error);
+  //     toast.error('Failed to create checkout session');
+  //   }
+  //   Swal.fire({
+  //         title: 'Success!',
+  //         text: 'app ka order confirm ho chuka hai',
+  //         icon: 'success',
+  //         showCancelButton: true,
+  //         confirmButtonText: 'OK',
+  //         confirmButtonColor: '#3085d6',
+  //         cancelButtonColor: '#d33',
+  //       }).then((result) => {
+  //         if (result.isConfirmed) {
+  //           // router.push('/checkout');
+  //         }
+  //       });
+
+  //   const orderData = {
+  //     _type: 'order',
+  //     firstName: formValues.firstName,
+  //     lastName: formValues.lastName,
+  //     address: formValues.address,
+  //     city: formValues.city,
+  //     zipCode: formValues.zipCode,
+  //     phone: formValues.phone,
+  //     email: formValues.email,
+  //     cartItems: cartItems.map(item => ({
+  //       _key: item._id,
+  //       _type: 'reference',
+  //       _ref: item._id,  // Assuming cartItems have the correct product references
+  //     })),
+  //     total: total,  // Make sure this value is being calculated
+  //     discount: discount,  // Add any discount if applicable
+  //     orderDate: new Date().toISOString(),  // Order date for when the order was placed
+  //   };
+  //   try {
+  //     const response = await client.create(orderData);
+  //     console.log("Order Created Successfully:", response);
+  //   } catch (error) {
+  //     console.error("Sanity Order Creation Failed:", error);
+  //   }
+    
+  //   console.log(orderData);
+  // };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const [formErrors, setFormErrors] = useState({
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    zipCode: "",
+    phone: "",
+    email: "",
+  });
+
+
+
+
+
+
+  const validateForm = () => {
+    const errors = {
+      firstName: "",
+      lastName: "",
+      address: "",
+      city: "",
+      zipCode: "",
+      phone: "",
+      email: "",
+    };
+
+    let isValid = true;
+
+    if (!formValues.firstName) {
+      errors.firstName = "First Name is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z\s]+$/.test(formValues.firstName)) {
+      errors.firstName = "First Name must contain only letters";
+      isValid = false;
+    }
+
+    if (!formValues.lastName) {
+      errors.lastName = "Last Name is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z\s]+$/.test(formValues.lastName)) {
+      errors.lastName = "Last Name must contain only letters";
+      isValid = false;
+    }
+
+    if (!formValues.address) {
+      errors.address = "Address is required";
+      isValid = false;
+    }
+
+    if (!formValues.city) {
+      errors.city = "City is required";
+      isValid = false;
+    }
+
+    if (!formValues.zipCode) {
+      errors.zipCode = "Zip Code is required";
+      isValid = false;
+    } else if (!/^\d{5}(-\d{4})?$/.test(formValues.zipCode)) {
+      errors.zipCode = "Invalid Zip Code format";
+      isValid = false;
+    }
+
+    if (!formValues.phone) {
+      errors.phone = "Phone Number is required";
+      isValid = false;
+    } else if (!/^\d+$/.test(formValues.phone)) {
+      errors.phone = "Phone Number must contain only numbers";
+      isValid = false;
+    }
+
+    if (!formValues.email) {
+      errors.email = "Email is required";
+      isValid = false;
+    }
+
+    setFormErrors(errors);
+    return isValid;
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const handleCheckout = async () => {
+    if (!validateForm()) {
+      toast.error("Please fill out all required fields.");
+      return;
+    }
+
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
@@ -46,50 +224,11 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
       if (data.url) {
         window.location.href = data.url;
       }
-    } catch (error) {
-      console.error("Error during checkout", error);
+    } catch (err) {
+      console.error("Error during checkout", err);
       toast.error('Failed to create checkout session');
     }
-    Swal.fire({
-          title: 'Success!',
-          text: 'app ka order confirm ho chuka hai',
-          icon: 'success',
-          showCancelButton: true,
-          confirmButtonText: 'OK',
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // router.push('/checkout');
-          }
-        });
 
-    const orderData = {
-      _type: 'order',
-      firstName: formValues.firstName,
-      lastName: formValues.lastName,
-      address: formValues.address,
-      city: formValues.city,
-      zipCode: formValues.zipCode,
-      phone: formValues.phone,
-      email: formValues.email,
-      cartItems: cartItems.map(item => ({
-        _key: item._id,
-        _type: 'reference',
-        _ref: item._id,  // Assuming cartItems have the correct product references
-      })),
-      total: total,  // Make sure this value is being calculated
-      discount: discount,  // Add any discount if applicable
-      orderDate: new Date().toISOString(),  // Order date for when the order was placed
-    };
-    try {
-      const response = await client.create(orderData);
-      console.log("Order Created Successfully:", response);
-    } catch (error) {
-      console.error("Sanity Order Creation Failed:", error);
-    }
-    
-    console.log(orderData);
   };
 
 
@@ -98,6 +237,83 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
 
 
 
+
+
+
+
+
+
+
+
+
+  const handlePlaceOrder = async () => {
+    Swal.fire({
+      title: "Processing Your Order",
+      text: "Please wait a moment",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Proceed",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        if (validateForm()) {
+          const orderData = {
+            _type: "order",
+            firstName: formValues.firstName,
+            lastName: formValues.lastName,
+            address: formValues.address,
+            email: formValues.email,
+            phone: formValues.phone,
+            // zipcode: formValues.zipCode,
+            city: formValues.city,
+            total: total,
+            discount: discount,
+            cartItems: cartItems.map((item) => ({
+              _key: item._id,
+              _type: "reference",
+              _ref: item._id,
+            })),
+          };
+  
+          try {
+            const response = await fetch('/api/createorder', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(orderData),
+            });
+  
+            if (response.ok) {
+              localStorage.removeItem("appliedDiscount");
+  
+              // New SweetAlert for Pay With Stripe
+              Swal.fire({
+                title: "Order Ready!",
+                text: "Click below to pay with Stripe",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Pay With Stripe",
+              }).then((stripeResult) => {
+                if (stripeResult.isConfirmed) {
+                  handleCheckout();
+                }
+              });
+  
+            } else {
+              throw new Error('Failed to create order');
+            }
+          } catch (err) {
+            console.error(err); // Error console me print hoga
+            Swal.fire(
+              "Error!",
+              "Please fill all fields correctly.",
+              "error"
+            );
+          }
+        }
+      }})}
 
 
 
