@@ -306,7 +306,7 @@ export default function CheckoutPage() {
 
 
 
-  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const cartItems = useSelector((state: RootState) => state.cart);
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
