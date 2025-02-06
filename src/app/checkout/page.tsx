@@ -74,7 +74,7 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
       phone: formValues.phone,
       email: formValues.email,
       cartItems: cartItems.map(item => ({
-        _key:item._id,
+        _key: item._id,
         _type: 'reference',
         _ref: item._id,  // Assuming cartItems have the correct product references
       })),
