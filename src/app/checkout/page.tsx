@@ -22,9 +22,9 @@ export default function CheckoutPage() {
 
   const deliveryFee = 15; // Fixed delivery fee
 
-const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-const discount = subtotal * 0.2; // 20% discount
-const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added properly
+  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const discount = subtotal * 0.2; // 20% discount
+  const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added properly
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,78 +33,6 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
       [name]: value,
     });
   };
-
-  // const handlePlaceOrder = async () => {
-  //   try {
-  //     const response = await fetch('/api/checkout', {
-  //       method: 'POST',
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify({ allproducts: cartItems }),
-  //     });
-  //     const data = await response.json();
-  //     if (data.url) {
-  //       window.location.href = data.url;
-  //     }
-  //   } catch (error) {
-  //     console.error("Error during checkout", error);
-  //     toast.error('Failed to create checkout session');
-  //   }
-  //   Swal.fire({
-  //         title: 'Success!',
-  //         text: 'app ka order confirm ho chuka hai',
-  //         icon: 'success',
-  //         showCancelButton: true,
-  //         confirmButtonText: 'OK',
-  //         confirmButtonColor: '#3085d6',
-  //         cancelButtonColor: '#d33',
-  //       }).then((result) => {
-  //         if (result.isConfirmed) {
-  //           // router.push('/checkout');
-  //         }
-  //       });
-
-  //   const orderData = {
-  //     _type: 'order',
-  //     firstName: formValues.firstName,
-  //     lastName: formValues.lastName,
-  //     address: formValues.address,
-  //     city: formValues.city,
-  //     zipCode: formValues.zipCode,
-  //     phone: formValues.phone,
-  //     email: formValues.email,
-  //     cartItems: cartItems.map(item => ({
-  //       _key: item._id,
-  //       _type: 'reference',
-  //       _ref: item._id,  // Assuming cartItems have the correct product references
-  //     })),
-  //     total: total,  // Make sure this value is being calculated
-  //     discount: discount,  // Add any discount if applicable
-  //     orderDate: new Date().toISOString(),  // Order date for when the order was placed
-  //   };
-  //   try {
-  //     const response = await client.create(orderData);
-  //     console.log("Order Created Successfully:", response);
-  //   } catch (error) {
-  //     console.error("Sanity Order Creation Failed:", error);
-  //   }
-    
-  //   console.log(orderData);
-  // };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   const [formErrors, setFormErrors] = useState({
     firstName: "",
@@ -115,11 +43,6 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
     phone: "",
     email: "",
   });
-
-
-
-
-
 
   const validateForm = () => {
     const errors = {
@@ -186,27 +109,6 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
   };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const handleCheckout = async () => {
     if (!validateForm()) {
       toast.error("Please fill out all required fields.");
@@ -231,21 +133,6 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
     }
 
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   const handlePlaceOrder = async () => {
     Swal.fire({
@@ -276,7 +163,7 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
               _ref: items._id,
             })),
           };
-  
+
           try {
             const response = await fetch('/api/createorder', {
               method: 'POST',
@@ -285,10 +172,10 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
               },
               body: JSON.stringify(orderData),
             });
-  
+
             if (response.ok) {
               localStorage.removeItem("appliedDiscount");
-  
+
               // New SweetAlert for Pay With Stripe
               Swal.fire({
                 title: "Order Ready!",
@@ -301,7 +188,7 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
                   handleCheckout();
                 }
               });
-  
+
             } else {
               throw new Error('Failed to create order');
             }
@@ -314,7 +201,9 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
             );
           }
         }
-      }})}
+      }
+    })
+  }
 
 
 
@@ -338,11 +227,11 @@ const total = subtotal - discount + deliveryFee; // Ensure delivery fee is added
                 </div>
                 <div className="flex-1 gap-44">
                   <h3 className="text-lg font-bold">{item.name}</h3>
-                  
-                <h5 className="text-lg font-semibold text-gray-600"><span className="text-black">Size: </span>{item.size}</h5>
-                <p className="text-sm text-gray-600"><span className="text-black font-semibold">Color: </span>{item.color}</p>              
-                <p className="text-sm text-gray-600"><span className="text-black font-semibold">Quantity: </span>{item.quantity}</p>              
-                  </div>
+
+                  <h5 className="text-lg font-semibold text-gray-600"><span className="text-black">Size: </span>{item.size}</h5>
+                  <p className="text-sm text-gray-600"><span className="text-black font-semibold">Color: </span>{item.color}</p>
+                  <p className="text-sm text-gray-600"><span className="text-black font-semibold">Quantity: </span>{item.quantity}</p>
+                </div>
                 <p className="text-lg text-slate-600 font-bold ">${item.price * item.quantity}</p>
               </div>
             ))}

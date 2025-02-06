@@ -1,5 +1,3 @@
-// actions/actions.ts
-// import { Product } from '@/types/product';
 
 import { Product } from "../type/product";
 
