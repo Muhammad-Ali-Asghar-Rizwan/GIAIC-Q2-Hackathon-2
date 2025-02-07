@@ -23,12 +23,12 @@ function NavbarTop() {
         </div>
 
         {/* Right Section */}
-        <div className="ml-auto flex items-center text-sm md:text-base">
+        {/* <div className="ml-auto flex items-center text-sm md:text-base">
           <h1 className="flex items-center gap-2">
             <RiCloseFill />
 
           </h1>
-        </div>
+        </div> */}
       </div>
     </div>
   );
