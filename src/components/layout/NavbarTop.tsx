@@ -3,7 +3,7 @@
 import { SignedOut, SignInButton } from '@clerk/clerk-react';
 import Link from 'next/link';
 import React from 'react';
-import { RiCloseFill } from "react-icons/ri";
+// import { RiCloseFill } from "react-icons/ri";
 
 function NavbarTop() {
   return (

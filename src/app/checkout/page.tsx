@@ -228,8 +228,8 @@ export default function CheckoutPage() {
                 <div className="flex-1 gap-44">
                   <h3 className="text-lg font-bold">{item.name}</h3>
 
-                  <h5 className="text-lg font-semibold text-gray-600"><span className="text-black">Size: </span>{item.size}</h5>
-                  <p className="text-sm text-gray-600"><span className="text-black font-semibold">Color: </span>{item.color}</p>
+                  <h5 className="text-lg font-semibold text-gray-600"><span className="text-black">Size: </span>{item.size || "small"}</h5>
+                  <p className="text-sm text-gray-600"><span className="text-black font-semibold">Color: </span>{item.color || "red"}</p>
                   <p className="text-sm text-gray-600"><span className="text-black font-semibold">Quantity: </span>{item.quantity}</p>
                 </div>
                 <p className="text-lg text-slate-600 font-bold ">${item.price * item.quantity}</p>
