@@ -95,9 +95,11 @@ function Navbar() {
                   <li><Link href="/Selling" className="hover:underline">On Sale</Link></li>
                   <li><Link href="/Arrival" className="hover:underline">New Arrival</Link></li>
                   <li><Link href="/category" className="hover:underline">Brands</Link></li>
-                  <SignedOut>
+                  <li className="ml-32">
+                  <SignedOut >
               <SignInButton />
             </SignedOut>
+                  </li>
                 </ul>
               </SheetContent>
             </Sheet>
